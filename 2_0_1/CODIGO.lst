@@ -1,4 +1,4 @@
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  1
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ Warning[207]: Found label after column 1. (SUBT2V)
                       00047                     GOTO            $+3
                       00048                     BCF             PORTA,7
                       00049                     GOTO            $+3
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  2
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ Warning[207]: Found label after column 1. (VAR_DIP)
                       00019                         
                       00020 
                       00021 ;******************************************************************************************
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  3
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -127,80 +127,373 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00024 
 000D   01A0           00025             CLRF            VAR_ACTUAL  ;SE INCICIA EN 00 VALOR ACTUAL
                       00026 
-000E   1C06           00027 INCREMENTO: BTFSS           PORTB,0     ;SI SE PRESIONA PB0 INCREMENTA EL VALOR ACTUAL 
-000F   2???           00028             GOTO            DECREMENTO
-0010   2???           00029             CALL            T25MS
-0011   1806           00030             BTFSC           PORTB,0
-0012   2???           00031             GOTO            $-1
-0013   2???           00032             CALL            T25MS
-0014   0AA0           00033             INCF            VAR_ACTUAL,F
-                      00034 
-0015   2???           00035             GOTO            DECREMENTO
+000E   2???           00027             GOTO            NIVEL8
+                      00028 
+000F   1C06           00029 INCREMENTO: BTFSS           PORTB,0     ;SI SE PRESIONA PB0 INCREMENTA EL VALOR ACTUAL 
+0010   2???           00030             GOTO            DECREMENTO
+0011   2???           00031             CALL            T25MS
+0012   1806           00032             BTFSC           PORTB,0
+0013   2???           00033             GOTO            $-1
+0014   2???           00034             CALL            T25MS
+0015   0AA0           00035             INCF            VAR_ACTUAL,F
                       00036 
-0016   1C86           00037 DECREMENTO: BTFSS           PORTB,1     ;SI SE PRESIONA PB0 DECREMENTA EL VALOR ACTUAL 
-0017   2???           00038             GOTO            LEER_DIP
-0018   2???           00039             CALL            T25MS
-0019   1886           00040             BTFSC           PORTB,1
-001A   2???           00041             GOTO            $-1
-001B   2???           00042             CALL            T25MS
-001C   03A0           00043             DECF            VAR_ACTUAL,F;DECREMENTA EN UNO AL VALOR ACTUAL 
-                      00044 
-001D   0820           00045             MOVF            VAR_ACTUAL,W;SACA LO QUE TIENE VAR_ACTUAL
-001E   0087           00046             MOVWF           PORTC       ;CARGALO EN PORTC
-                      00047 
-001F   2???           00048             GOTO            LEER_DIP
-                      00049 
-0020   1D06           00050 LEER_DIP:   BTFSS           PORTB,2     ;SI SE PRESIONA PB0 SE LEE PORTD Y SE ACTUALIZA EL VALOR ACTUAL 
-0021   2???           00051             GOTO            INCREMENTO
-0022   2???           00052             CALL            T25MS
-0023   1906           00053             BTFSC           PORTB,2
-0024   2???           00054             GOTO            $-1
-0025   2???           00055             CALL            T25MS
-0026   0808           00056             MOVF            PORTD,W     ;LEE PORTD Y SE CARGA EN W   
-0027   00A0           00057             MOVWF           VAR_ACTUAL  ;SE ACTUALIZA VAR_ACTUAL
-                      00058 
-0028   0087           00059             MOVWF           PORTC       ;SE ACTUALIZA PORTC
-0029   2???           00060             GOTO            INCREMENTO
-                      00061 
-002A   1586           00062 SERVO140:       BSF                             PORTB,3         ;400
-                      00063                      SUBT2V                     .21,.14
-002B   300E               M             MOVLW       .14     
-002C   00E1               M             MOVWF       0X61
-002D   3015               M             MOVLW       .21     
-002E   00E2               M             MOVWF       0X62
-002F   2???               M             CALL        ST2V
-0030   1286           00064                     BCF                         PORTB,5
-                      00065                      SUBT2V                     .18,.141        
-0031   308D               M             MOVLW       .141    
-0032   00E1               M             MOVWF       0X61
-0033   3012               M             MOVLW       .18     
-0034   00E2               M             MOVWF       0X62
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  4
+0016   0820           00037             MOVF            VAR_ACTUAL,W;SACA LO QUE TIENE VAR_ACTUAL
+0017   0087           00038             MOVWF           PORTC       ;CARGALO EN PORTC
+                      00039 
+0018   2???           00040             GOTO            DECREMENTO
+                      00041 
+0019   1C86           00042 DECREMENTO: BTFSS           PORTB,1     ;SI SE PRESIONA PB1 DECREMENTA EL VALOR ACTUAL 
+001A   2???           00043             GOTO            LEER_DIP
+001B   2???           00044             CALL            T25MS
+001C   1886           00045             BTFSC           PORTB,1
+001D   2???           00046             GOTO            $-1
+001E   2???           00047             CALL            T25MS
+001F   03A0           00048             DECF            VAR_ACTUAL,F;DECREMENTA EN UNO AL VALOR ACTUAL 
+                      00049             
+0020   0820           00050             MOVF            VAR_ACTUAL,W;SACA LO QUE TIENE VAR_ACTUAL
+0021   0087           00051             MOVWF           PORTC       ;CARGALO EN PORTC
+                      00052 
+0022   2???           00053             GOTO            LEER_DIP
+                      00054 
+0023   1D06           00055 LEER_DIP:   BTFSS           PORTB,2     ;SI SE PRESIONA PB2 SE LEE PORTD Y SE ACTUALIZA EL VALOR ACTUAL 
+0024   2???           00056             GOTO            INCREMENTO
+0025   2???           00057             CALL            T25MS
+0026   1906           00058             BTFSC           PORTB,2
+0027   2???           00059             GOTO            $-1
+0028   2???           00060             CALL            T25MS
+0029   0808           00061             MOVF            PORTD,W     ;LEE PORTD Y SE CARGA EN W   
+002A   00A0           00062             MOVWF           VAR_ACTUAL  ;SE ACTUALIZA VAR_ACTUAL
+                      00063 
+002B   0087           00064             MOVWF           PORTC       ;SE ACTUALIZA PORTC
+                      00065 
+002C   2???           00066             GOTO            INCREMENTO
+                      00067 
+                      00068 
+                      00069 
+                      00070 
+002D   0820           00071 SEL_NIVEL:  MOVF            VAR_ACTUAL,W    ;EXTRAE VALOR ACTUAL    SELECCIONA EL NIVEL DE INTENSIDAD LU
+                            MINICA    
+002E   3C01           00072             SUBLW           .1              ;K-W -->> W     1 - VAR_ACTUAL-->>W
+002F   1D03           00073             BTFSS           STATUS,Z        ;EL RESULTADO ES CERO
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0035   2???               M             CALL        ST2V
-0036   2???           00066                     GOTO                        SERVO140           
-                      00067 
-                      00068 
-                      00069 
-                      00070 ;---------------------TIEMPOS--------------
-0037   3003           00071 T25MS:                  MOVLW           .3   ;VAR1
-0038   00E4           00072                         MOVWF           0X64
-0039   302F           00073                         MOVLW           .47   ;VAR2
-003A   00E5           00074                         MOVWF           0X65
-003B   3019           00075                         MOVLW           .25   ;VAR3
-003C   00E6           00076                         MOVWF           0X66
-003D   0008           00077                         RETURN
-003E   2???           00078                         CALL            ST3V
-                      00079 
-003F   2???           00080 FIN:        GOTO        $
-                      00081 
-                      00082 
-                      00083 
-                      00084             INCLUDE         <SUBTIEMPO.ASM>
+0030   2???           00074             GOTO            NIVEL1          ;
+                      00075             
+0031   0820           00076             MOVF            VAR_ACTUAL,W    ;EXTRAE VALOR ACTUAL     
+0032   3C02           00077             SUBLW           .2              ;K-W -->> W     2 - VAR_ACTUAL-->>W
+0033   1D03           00078             BTFSS           STATUS,Z        ;EL RESULTADO ES CERO
+0034   2???           00079             GOTO            NIVEL2          ;
+                      00080             
+0035   0820           00081             MOVF            VAR_ACTUAL,W    ;EXTRAE VALOR ACTUAL     
+0036   3C03           00082             SUBLW           .3              ;K-W -->> W     2 - VAR_ACTUAL-->>W
+0037   1D03           00083             BTFSS           STATUS,Z        ;EL RESULTADO ES CERO
+0038   2???           00084             GOTO            NIVEL3          ;
+                      00085             
+                      00086 
+                      00087 
+                      00088 ;----------------------NIVELES PWM-------------------------
+                      00089 
+0039   1586           00090 NIVEL1:     BSF                         PORTB,3         ;
+                      00091                      SUBT3V                     .3,.1,.1
+003A   3003               M             MOVLW       .3      
+003B   00E4               M             MOVWF       0X64
+003C   3001               M             MOVLW       .1      
+003D   00E5               M             MOVWF       0X65
+003E   3001               M             MOVLW       .1      
+003F   00E6               M             MOVWF       0X66
+0040   2???               M             CALL        ST3V
+0041   1186           00092                     BCF                         PORTB,3
+                      00093                      SUBT2V                     .1,.70
+0042   3046               M             MOVLW       .70     
+0043   00E1               M             MOVWF       0X61
+0044   3001               M             MOVLW       .1      
+0045   00E2               M             MOVWF       0X62
+0046   2???               M             CALL        ST2V
+0047   2???           00094                     GOTO                        NIVEL1  
+                      00095 
+0048   1586           00096 NIVEL2:     BSF                         PORTB,3         ;
+                      00097                      SUBT3V                     .1,.0,.24   ;CHECAR
+0049   3001               M             MOVLW       .1      
+004A   00E4               M             MOVWF       0X64
+004B   3000               M             MOVLW       .0      
+004C   00E5               M             MOVWF       0X65
+004D   3018               M             MOVLW       .24     
+004E   00E6               M             MOVWF       0X66
+004F   2???               M             CALL        ST3V
+0050   1186           00098                     BCF                         PORTB,3
+                      00099                      SUBT2V                     .1,.65  
+0051   3041               M             MOVLW       .65     
+0052   00E1               M             MOVWF       0X61
+0053   3001               M             MOVLW       .1      
+0054   00E2               M             MOVWF       0X62
+0055   2???               M             CALL        ST2V
+0056   2???           00100                     GOTO                        NIVEL2  
+                      00101 
+0057   1586           00102 NIVEL3:     BSF                         PORTB,3         ;
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00103                      SUBT2V                     .7,.3
+0058   3003               M             MOVLW       .3      
+0059   00E1               M             MOVWF       0X61
+005A   3007               M             MOVLW       .7      
+005B   00E2               M             MOVWF       0X62
+005C   2???               M             CALL        ST2V
+005D   1186           00104                     BCF                         PORTB,3
+                      00105                      SUBT2V                     .0,.164     ;CHECAR
+005E   30A4               M             MOVLW       .164    
+005F   00E1               M             MOVWF       0X61
+0060   3000               M             MOVLW       .0      
+0061   00E2               M             MOVWF       0X62
+0062   2???               M             CALL        ST2V
+0063   2???           00106                     GOTO                        NIVEL3  
+                      00107 
+0064   1586           00108 NIVEL4:     BSF                         PORTB,3         ;
+                      00109                      SUBT3V                     .1,.1,.19
+0065   3001               M             MOVLW       .1      
+0066   00E4               M             MOVWF       0X64
+0067   3001               M             MOVLW       .1      
+0068   00E5               M             MOVWF       0X65
+0069   3013               M             MOVLW       .19     
+006A   00E6               M             MOVWF       0X66
+006B   2???               M             CALL        ST3V
+006C   1186           00110                     BCF                         PORTB,3
+                      00111                      SUBT2V                     .0,.151     ;CHECAR
+006D   3097               M             MOVLW       .151    
+006E   00E1               M             MOVWF       0X61
+006F   3000               M             MOVLW       .0      
+0070   00E2               M             MOVWF       0X62
+0071   2???               M             CALL        ST2V
+0072   2???           00112                     GOTO                        NIVEL4                 
+                      00113 
+0073   1586           00114 NIVEL5:     BSF                         PORTB,3         ;
+                      00115                      SUBT2V                     .2,.15
+0074   300F               M             MOVLW       .15     
+0075   00E1               M             MOVWF       0X61
+0076   3002               M             MOVLW       .2      
+0077   00E2               M             MOVWF       0X62
+0078   2???               M             CALL        ST2V
+0079   1186           00116                     BCF                         PORTB,3
+                      00117                      SUBT2V                     .0,.137     ;CHECAR
+007A   3089               M             MOVLW       .137    
+007B   00E1               M             MOVWF       0X61
+007C   3000               M             MOVLW       .0      
+007D   00E2               M             MOVWF       0X62
+007E   2???               M             CALL        ST2V
+007F   2???           00118                     GOTO                        NIVEL5
+                      00119 
+0080   1586           00120 NIVEL6:     BSF                         PORTB,3         ;
+                      00121                      SUBT2V                     .46,.1
+0081   3001               M             MOVLW       .1      
+0082   00E1               M             MOVWF       0X61
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0083   302E               M             MOVLW       .46     
+0084   00E2               M             MOVWF       0X62
+0085   2???               M             CALL        ST2V
+0086   1186           00122                     BCF                         PORTB,3
+                      00123                      SUBT3V                     .1,.69,.1           ;
+0087   3001               M             MOVLW       .1      
+0088   00E4               M             MOVWF       0X64
+0089   3045               M             MOVLW       .69     
+008A   00E5               M             MOVWF       0X65
+008B   3001               M             MOVLW       .1      
+008C   00E6               M             MOVWF       0X66
+008D   2???               M             CALL        ST3V
+008E   2???           00124                     GOTO                        NIVEL6                 
+                      00125 
+008F   1586           00126 NIVEL7:     BSF                         PORTB,3         ;
+                      00127                      SUBT3V                     .1,.3,.15
+0090   3001               M             MOVLW       .1      
+0091   00E4               M             MOVWF       0X64
+0092   3003               M             MOVLW       .3      
+0093   00E5               M             MOVWF       0X65
+0094   300F               M             MOVLW       .15     
+0095   00E6               M             MOVWF       0X66
+0096   2???               M             CALL        ST3V
+0097   1186           00128                     BCF                         PORTB,3
+                      00129                      SUBT3V                     .1,.61,.1           ;
+0098   3001               M             MOVLW       .1      
+0099   00E4               M             MOVWF       0X64
+009A   303D               M             MOVLW       .61     
+009B   00E5               M             MOVWF       0X65
+009C   3001               M             MOVLW       .1      
+009D   00E6               M             MOVWF       0X66
+009E   2???               M             CALL        ST3V
+009F   2???           00130                     GOTO                        NIVEL7                 
+                      00131 
+00A0   1586           00132 NIVEL8:     BSF                         PORTB,3         ;
+                      00133                      SUBT3V                     .1,.61,.1
+00A1   3001               M             MOVLW       .1      
+00A2   00E4               M             MOVWF       0X64
+00A3   303D               M             MOVLW       .61     
+00A4   00E5               M             MOVWF       0X65
+00A5   3001               M             MOVLW       .1      
+00A6   00E6               M             MOVWF       0X66
+00A7   2???               M             CALL        ST3V
+00A8   1186           00134                     BCF                         PORTB,3
+                      00135                      SUBT3V                     .1,.3,.15           ;
+00A9   3001               M             MOVLW       .1      
+00AA   00E4               M             MOVWF       0X64
+00AB   3003               M             MOVLW       .3      
+00AC   00E5               M             MOVWF       0X65
+00AD   300F               M             MOVLW       .15     
+00AE   00E6               M             MOVWF       0X66
+00AF   2???               M             CALL        ST3V
+00B0   2???           00136                     GOTO                        NIVEL8                 
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00137 
+00B1   1586           00138 NIVEL9:     BSF                         PORTB,3         ;
+                      00139                      SUBT3V                     .1,.69,.1
+00B2   3001               M             MOVLW       .1      
+00B3   00E4               M             MOVWF       0X64
+00B4   3045               M             MOVLW       .69     
+00B5   00E5               M             MOVWF       0X65
+00B6   3001               M             MOVLW       .1      
+00B7   00E6               M             MOVWF       0X66
+00B8   2???               M             CALL        ST3V
+00B9   1186           00140                     BCF                         PORTB,3
+                      00141                      SUBT2V                     .46,.1      ;
+00BA   3001               M             MOVLW       .1      
+00BB   00E1               M             MOVWF       0X61
+00BC   302E               M             MOVLW       .46     
+00BD   00E2               M             MOVWF       0X62
+00BE   2???               M             CALL        ST2V
+00BF   2???           00142                     GOTO                        NIVEL9                 
+00C0   1586           00143 NIVEL10:        BSF                             PORTB,3         ;
+                      00144                      SUBT2V                     .0,.137     ;CHECAR
+00C1   3089               M             MOVLW       .137    
+00C2   00E1               M             MOVWF       0X61
+00C3   3000               M             MOVLW       .0      
+00C4   00E2               M             MOVWF       0X62
+00C5   2???               M             CALL        ST2V
+00C6   1186           00145                     BCF                         PORTB,3
+                      00146                      SUBT2V                     .2,.15      ;
+00C7   300F               M             MOVLW       .15     
+00C8   00E1               M             MOVWF       0X61
+00C9   3002               M             MOVLW       .2      
+00CA   00E2               M             MOVWF       0X62
+00CB   2???               M             CALL        ST2V
+00CC   2???           00147                     GOTO                        NIVEL10           
+                      00148 
+00CD   1586           00149 NIVEL11:        BSF                             PORTB,3         ;
+                      00150                      SUBT2V                     .0,.151     ;CHECAR
+00CE   3097               M             MOVLW       .151    
+00CF   00E1               M             MOVWF       0X61
+00D0   3000               M             MOVLW       .0      
+00D1   00E2               M             MOVWF       0X62
+00D2   2???               M             CALL        ST2V
+00D3   1186           00151                     BCF                         PORTB,3
+                      00152                      SUBT3V                     .1,.1,.19           ;
+00D4   3001               M             MOVLW       .1      
+00D5   00E4               M             MOVWF       0X64
+00D6   3001               M             MOVLW       .1      
+00D7   00E5               M             MOVWF       0X65
+00D8   3013               M             MOVLW       .19     
+00D9   00E6               M             MOVWF       0X66
+00DA   2???               M             CALL        ST3V
+00DB   2???           00153                     GOTO                        NIVEL11            
+                      00154 
+00DC   1586           00155 NIVEL12:        BSF                             PORTB,3         ;
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00156                      SUBT3V                     .1,.0,.163  ;CHECAR
+00DD   3001               M             MOVLW       .1      
+00DE   00E4               M             MOVWF       0X64
+00DF   3000               M             MOVLW       .0      
+00E0   00E5               M             MOVWF       0X65
+00E1   30A3               M             MOVLW       .163    
+00E2   00E6               M             MOVWF       0X66
+00E3   2???               M             CALL        ST3V
+00E4   1186           00157                     BCF                         PORTB,3
+                      00158                      SUBT2V                     .7,.3       ;
+00E5   3003               M             MOVLW       .3      
+00E6   00E1               M             MOVWF       0X61
+00E7   3007               M             MOVLW       .7      
+00E8   00E2               M             MOVWF       0X62
+00E9   2???               M             CALL        ST2V
+00EA   2???           00159                     GOTO                        NIVEL12                
+                      00160 
+00EB   1586           00161 NIVEL13:        BSF                             PORTB,3         ;
+                      00162                      SUBT2V                     .1,.65
+00EC   3041               M             MOVLW       .65     
+00ED   00E1               M             MOVWF       0X61
+00EE   3001               M             MOVLW       .1      
+00EF   00E2               M             MOVWF       0X62
+00F0   2???               M             CALL        ST2V
+00F1   1186           00163                     BCF                         PORTB,3
+                      00164                      SUBT2V                     .0,.26      ;CHECAR
+00F2   301A               M             MOVLW       .26     
+00F3   00E1               M             MOVWF       0X61
+00F4   3000               M             MOVLW       .0      
+00F5   00E2               M             MOVWF       0X62
+00F6   2???               M             CALL        ST2V
+00F7   2???           00165                     GOTO                        NIVEL13                
+                      00166 
+00F8   1586           00167 NIVEL14:        BSF                             PORTB,3         ;
+                      00168                      SUBT2V                     .1,.70
+00F9   3046               M             MOVLW       .70     
+00FA   00E1               M             MOVWF       0X61
+00FB   3001               M             MOVLW       .1      
+00FC   00E2               M             MOVWF       0X62
+00FD   2???               M             CALL        ST2V
+00FE   1186           00169                     BCF                         PORTB,3
+                      00170                      SUBT3V                     .3,.1,.1            ;
+00FF   3003               M             MOVLW       .3      
+0100   00E4               M             MOVWF       0X64
+0101   3001               M             MOVLW       .1      
+0102   00E5               M             MOVWF       0X65
+0103   3001               M             MOVLW       .1      
+0104   00E6               M             MOVWF       0X66
+0105   2???               M             CALL        ST3V
+0106   2???           00171                     GOTO                        NIVEL14                
+                      00172 
+0107   1586           00173 NIVEL15:        BSF                             PORTB,3         ;
+0108   2???           00174                     GOTO                        NIVEL15                
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00175 
+                      00176 
+                      00177 
+                      00178 ;---------------------TIEMPOS--------------
+0109   3003           00179 T25MS:                  MOVLW           .3   ;VAR1
+010A   00E4           00180                         MOVWF           0X64
+010B   302F           00181                         MOVLW           .47   ;VAR2
+010C   00E5           00182                         MOVWF           0X65
+010D   3019           00183                         MOVLW           .25   ;VAR3
+010E   00E6           00184                         MOVWF           0X66
+010F   0008           00185                         RETURN
+0110   2???           00186                         CALL            ST3V
+                      00187 
+0111   2???           00188 FIN:        GOTO        $
+                      00189 
+                      00190 
+                      00191 
+                      00192             INCLUDE         <SUBTIEMPO.ASM>
                       00001 ;           MOVLW       .   ;VAR2
                       00002 ;           MOVWF       0X61
                       00003 ;           MOVLW       .   ;VAR1
@@ -216,53 +509,53 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00013 ;           CALL        ST3V
                       00014 ;-------------------------------------------
                       00015 ;SUBRUTINA DE TIMEPO DE UNA VARIABLE 
-0040   0000           00016 ST1V:       NOP
-0041   0000           00017             NOP
-0042   0000           00018             NOP
-0043   0000           00019             NOP
-0044   0BE0           00020             DECFSZ      0X60,F
-0045   2???           00021             GOTO        ST1V
-0046   0008           00022             RETURN
+0112   0000           00016 ST1V:       NOP
+0113   0000           00017             NOP
+0114   0000           00018             NOP
+0115   0000           00019             NOP
+0116   0BE0           00020             DECFSZ      0X60,F
+0117   2???           00021             GOTO        ST1V
+0118   0008           00022             RETURN
                       00023 ;-------------------------------------------
                       00024 ;SUBRUTINA DE TIEMPO DE DOS VARIABLES 
-0047   0862           00025 ST2V:       MOVF       0X62,W
-0048   00E3           00026             MOVWF      0X63
-0049   0000           00027 DECRE2V:    NOP
-004A   0000           00028             NOP
-004B   0000           00029             NOP
-004C   0000           00030             NOP
-004D   0BE3           00031             DECFSZ      0X63,F
-004E   2???           00032             GOTO        DECRE2V
-004F   0BE1           00033             DECFSZ      0X61,F
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  5
+0119   0862           00025 ST2V:       MOVF       0X62,W
+011A   00E3           00026             MOVWF      0X63
+011B   0000           00027 DECRE2V:    NOP
+011C   0000           00028             NOP
+011D   0000           00029             NOP
+011E   0000           00030             NOP
+011F   0BE3           00031             DECFSZ      0X63,F
+0120   2???           00032             GOTO        DECRE2V
+0121   0BE1           00033             DECFSZ      0X61,F
+0122   2???           00034             GOTO        ST2V
+0123   0008           00035             RETURN
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0050   2???           00034             GOTO        ST2V
-0051   0008           00035             RETURN
                       00036 ;------------------------------------------
                       00037 ;SUBRUTINA DE TIEMPO DE TRES VARIABLES
-0052   0866           00038 ST3V:       MOVF        0X66,W
-0053   00E7           00039             MOVWF       0X67
-0054   0865           00040 RECARGA3V:  MOVF        0X65,W
-0055   00E8           00041             MOVWF       0X68
-0056   0000           00042 DECRE3V:    NOP
-0057   0000           00043             NOP
-0058   0000           00044             NOP
-0059   0000           00045             NOP
-005A   0BE8           00046             DECFSZ      0X68,F
-005B   2???           00047             GOTO        DECRE3V
-005C   0BE7           00048             DECFSZ      0X67,F
-005D   2???           00049             GOTO        RECARGA3V
-005E   0BE4           00050             DECFSZ      0X64,F
-005F   2???           00051             GOTO        ST3V
-0060   0008           00052             RETURN
+0124   0866           00038 ST3V:       MOVF        0X66,W
+0125   00E7           00039             MOVWF       0X67
+0126   0865           00040 RECARGA3V:  MOVF        0X65,W
+0127   00E8           00041             MOVWF       0X68
+0128   0000           00042 DECRE3V:    NOP
+0129   0000           00043             NOP
+012A   0000           00044             NOP
+012B   0000           00045             NOP
+012C   0BE8           00046             DECFSZ      0X68,F
+012D   2???           00047             GOTO        DECRE3V
+012E   0BE7           00048             DECFSZ      0X67,F
+012F   2???           00049             GOTO        RECARGA3V
+0130   0BE4           00050             DECFSZ      0X64,F
+0131   2???           00051             GOTO        ST3V
+0132   0008           00052             RETURN
                       00053 
                       00054 
-23E4 3FFF             00085             END             
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  6
+23E4 3FFF             00193             END             
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 11
 
 
 SYMBOL TABLE
@@ -321,7 +614,7 @@ BRG6                              00000006
 BRG7                              00000007
 BRG8                              00000000
 BRG9                              00000001
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  7
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 12
 
 
 SYMBOL TABLE
@@ -380,7 +673,7 @@ CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
 CHS3                              00000005
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  8
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 13
 
 
 SYMBOL TABLE
@@ -400,9 +693,9 @@ DC1B0                             00000004
 DC1B1                             00000005
 DC2B0                             00000004
 DC2B1                             00000005
-DECRE2V                           00000049
-DECRE3V                           00000056
-DECREMENTO                        00000016
+DECRE2V                           0000011B
+DECRE3V                           00000128
+DECREMENTO                        00000019
 D_A                               00000005
 D_NOT_A                           00000005
 ECCPAS                            0000009C
@@ -422,7 +715,7 @@ EEIF                              00000004
 EEPGD                             00000007
 F                                 00000001
 FERR                              00000002
-FIN                               0000003F
+FIN                               00000111
 FSR                               00000004
 FVREN                             00000000
 GCEN                              00000007
@@ -435,11 +728,11 @@ I2C_DATA                          00000005
 I2C_READ                          00000002
 I2C_START                         00000003
 I2C_STOP                          00000004
-INCREMENTO                        0000000E
+INCREMENTO                        0000000F
 INDF                              00000000
 INTCON                            0000000B
 INTE                              00000004
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE  9
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 14
 
 
 SYMBOL TABLE
@@ -460,7 +753,7 @@ IRCF0                             00000004
 IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
-LEER_DIP                          00000020
+LEER_DIP                          00000023
 LTS                               00000001
 MC1OUT                            00000007
 MC2OUT                            00000006
@@ -473,6 +766,21 @@ MSK4                              00000004
 MSK5                              00000005
 MSK6                              00000006
 MSK7                              00000007
+NIVEL1                            00000039
+NIVEL10                           000000C0
+NIVEL11                           000000CD
+NIVEL12                           000000DC
+NIVEL13                           000000EB
+NIVEL14                           000000F8
+NIVEL15                           00000107
+NIVEL2                            00000048
+NIVEL3                            00000057
+NIVEL4                            00000064
+NIVEL5                            00000073
+NIVEL6                            00000080
+NIVEL7                            0000008F
+NIVEL8                            000000A0
+NIVEL9                            000000B1
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
 NOT_BO                            00000000
@@ -483,6 +791,12 @@ NOT_POR                           00000001
 NOT_RBPU                          00000007
 NOT_RC8                           00000006
 NOT_T1SYNC                        00000002
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 NOT_TO                            00000004
 NOT_TX8                           00000006
 NOT_W                             00000002
@@ -498,12 +812,6 @@ P                                 00000004
 P1M0                              00000006
 P1M1                              00000007
 PCL                               00000002
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 10
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 PCLATH                            0000000A
 PCON                              0000008E
 PDC0                              00000000
@@ -542,6 +850,12 @@ PWM1CON                           0000009B
 R                                 00000002
 RA0                               00000000
 RA1                               00000001
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RA2                               00000002
 RA3                               00000003
 RA4                               00000004
@@ -557,12 +871,6 @@ RB4                               00000004
 RB5                               00000005
 RB6                               00000006
 RB7                               00000007
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 11
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 RBIE                              00000003
 RBIF                              00000000
 RC0                               00000000
@@ -596,11 +904,17 @@ RE1                               00000001
 RE2                               00000002
 RE3                               00000003
 READ_WRITE                        00000002
-RECARGA3V                         00000054
+RECARGA3V                         00000126
 RP0                               00000005
 RP1                               00000006
 RSEN                              00000001
 RX9                               00000006
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RX9D                              00000000
 R_NOT_W                           00000002
 R_W                               00000002
@@ -608,20 +922,14 @@ S                                 00000003
 SBOREN                            00000004
 SCKP                              00000004
 SCS                               00000000
+SEL_NIVEL                         0000002D
 SEN                               00000000
 SENDB                             00000003
-SERVO140                          0000002A
 SMP                               00000007
 SPBRG                             00000099
 SPBRGH                            0000009A
 SPEN                              00000007
 SR0                               00000006
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 12
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SR1                               00000007
 SRCON                             00000185
 SREN                              00000005
@@ -639,9 +947,9 @@ SSPM3                             00000003
 SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
-ST1V                              00000040
-ST2V                              00000047
-ST3V                              00000052
+ST1V                              00000112
+ST2V                              00000119
+ST3V                              00000124
 STATUS                            00000003
 STRA                              00000000
 STRB                              00000001
@@ -660,6 +968,12 @@ T0IF                              00000002
 T0SE                              00000004
 T1CKPS0                           00000004
 T1CKPS1                           00000005
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 T1CON                             00000010
 T1GINV                            00000007
 T1GIV                             00000007
@@ -667,7 +981,7 @@ T1GSS                             00000001
 T1INSYNC                          00000002
 T1OSCEN                           00000003
 T1SYNC                            00000002
-T25MS                             00000037
+T25MS                             00000109
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
@@ -675,12 +989,6 @@ TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
 TMR1                              0000000E
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 13
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TMR1CS                            00000001
 TMR1GE                            00000006
 TMR1H                             0000000F
@@ -719,6 +1027,12 @@ TRISC0                            00000000
 TRISC1                            00000001
 TRISC2                            00000002
 TRISC3                            00000003
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TRISC4                            00000004
 TRISC5                            00000005
 TRISC6                            00000006
@@ -734,12 +1048,6 @@ TRISD6                            00000006
 TRISD7                            00000007
 TRISE                             00000089
 TRISE0                            00000000
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 14
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TRISE1                            00000001
 TRISE2                            00000002
 TRISE3                            00000003
@@ -778,6 +1086,12 @@ VRSS                              00000004
 W                                 00000000
 WCOL                              00000007
 WDTCON                            00000105
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 WDTPS0                            00000001
 WDTPS1                            00000002
 WDTPS2                            00000003
@@ -793,19 +1107,13 @@ WPUB6                             00000006
 WPUB7                             00000007
 WR                                00000001
 WREN                              00000002
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 15
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 WRERR                             00000003
 WUE                               00000001
 Z                                 00000002
-_.org_0_0012                      00000012
-_.org_0_001A                      0000001A
-_.org_0_0024                      00000024
-_.org_0_003F                      0000003F
+_.org_0_0013                      00000013
+_.org_0_001D                      0000001D
+_.org_0_0027                      00000027
+_.org_0_0111                      00000111
 _BOR21V                           00003EFF
 _BOR40V                           00003FFF
 _BOR4V_BOR21V                     00003EFF
@@ -837,6 +1145,12 @@ _FCMEN_ON                         00003FFF
 _FOSC_EC                          00003FFB
 _FOSC_EXTRC_CLKOUT                00003FFF
 _FOSC_EXTRC_NOCLKOUT              00003FFE
+MPASM  5.51                        CODIGO.ASM   3-26-2024  0:14:24         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _FOSC_HS                          00003FFA
 _FOSC_INTRC_CLKOUT                00003FFD
 _FOSC_INTRC_NOCLKOUT              00003FFC
@@ -852,12 +1166,6 @@ _IESO_ON                          00003FFF
 _INTOSC                           00003FFD
 _INTOSCIO                         00003FFC
 _INTRC_OSC_CLKOUT                 00003FFD
-MPASM  5.51                        CODIGO.ASM   3-25-2024  21:58:14         PAGE 16
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _INTRC_OSC_NOCLKOUT               00003FFC
 _LP_OSC                           00003FF8
 _LVP_OFF                          00002FFF

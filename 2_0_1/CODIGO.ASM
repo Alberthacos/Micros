@@ -24,6 +24,8 @@
 
             CLRF            VAR_ACTUAL  ;SE INCICIA EN 00 VALOR ACTUAL
 
+            GOTO            NIVEL8
+
 INCREMENTO: BTFSS           PORTB,0     ;SI SE PRESIONA PB0 INCREMENTA EL VALOR ACTUAL 
             GOTO            DECREMENTO
             CALL            T25MS
@@ -37,7 +39,7 @@ INCREMENTO: BTFSS           PORTB,0     ;SI SE PRESIONA PB0 INCREMENTA EL VALOR 
 
             GOTO            DECREMENTO
 
-DECREMENTO: BTFSS           PORTB,1     ;SI SE PRESIONA PB0 DECREMENTA EL VALOR ACTUAL 
+DECREMENTO: BTFSS           PORTB,1     ;SI SE PRESIONA PB1 DECREMENTA EL VALOR ACTUAL 
             GOTO            LEER_DIP
             CALL            T25MS
             BTFSC           PORTB,1
@@ -50,7 +52,7 @@ DECREMENTO: BTFSS           PORTB,1     ;SI SE PRESIONA PB0 DECREMENTA EL VALOR 
 
             GOTO            LEER_DIP
 
-LEER_DIP:   BTFSS           PORTB,2     ;SI SE PRESIONA PB0 SE LEE PORTD Y SE ACTUALIZA EL VALOR ACTUAL 
+LEER_DIP:   BTFSS           PORTB,2     ;SI SE PRESIONA PB2 SE LEE PORTD Y SE ACTUALIZA EL VALOR ACTUAL 
             GOTO            INCREMENTO
             CALL            T25MS
             BTFSC           PORTB,2
@@ -60,13 +62,13 @@ LEER_DIP:   BTFSS           PORTB,2     ;SI SE PRESIONA PB0 SE LEE PORTD Y SE AC
             MOVWF           VAR_ACTUAL  ;SE ACTUALIZA VAR_ACTUAL
 
             MOVWF           PORTC       ;SE ACTUALIZA PORTC
-            
+
             GOTO            INCREMENTO
 
 
 
 
-SEL_NIVEL:  MOVF            VAR_ACTUAL,W    ;EXTRAE VALOR ACTUAL     
+SEL_NIVEL:  MOVF            VAR_ACTUAL,W    ;EXTRAE VALOR ACTUAL    SELECCIONA EL NIVEL DE INTENSIDAD LUMINICA    
             SUBLW           .1              ;K-W -->> W     1 - VAR_ACTUAL-->>W
             BTFSS           STATUS,Z        ;EL RESULTADO ES CERO
             GOTO            NIVEL1          ;
@@ -85,37 +87,91 @@ SEL_NIVEL:  MOVF            VAR_ACTUAL,W    ;EXTRAE VALOR ACTUAL
 
 ;----------------------NIVELES PWM-------------------------
 
-
-
-NIVEL1:	    BSF				PORTB,3		;400
-		     SUBT2V			.21,.14
-		    BCF				PORTB,5
-		     SUBT2V			.18,.141	
+NIVEL1:	    BSF				PORTB,3		;
+		     SUBT3V			.3,.1,.1
+		    BCF				PORTB,3
+		     SUBT2V			.1,.70
 		    GOTO			NIVEL1	
 
-NIVEL2:	    BSF				PORTB,3		;400
-		     SUBT2V			.21,.14
-		    BCF				PORTB,5
-		     SUBT2V			.18,.141	
+NIVEL2:	    BSF				PORTB,3		;
+		     SUBT3V			.1,.0,.24   ;CHECAR
+		    BCF				PORTB,3
+		     SUBT2V			.1,.65	
 		    GOTO			NIVEL2	
 
-NIVEL3:	    BSF				PORTB,3		;400
-		     SUBT2V			.21,.14
-		    BCF				PORTB,5
-		     SUBT2V			.18,.141	
+NIVEL3:	    BSF				PORTB,3		;
+		     SUBT2V			.7,.3
+		    BCF				PORTB,3
+		     SUBT2V			.0,.164     ;CHECAR
 		    GOTO			NIVEL3	
 
-NIVEL4:	    BSF				PORTB,3		;400
-		     SUBT2V			.21,.14
-		    BCF				PORTB,5
-		     SUBT2V			.18,.141	
+NIVEL4:	    BSF				PORTB,3		;
+		     SUBT3V			.1,.1,.19
+		    BCF				PORTB,3
+		     SUBT2V			.0,.151	    ;CHECAR
 		    GOTO			NIVEL4	               
 
-NIVEL5:	    BSF				PORTB,3		;400
-		     SUBT2V			.21,.14
-		    BCF				PORTB,5
-		     SUBT2V			.18,.141	
-		    GOTO			NIVEL5	               
+NIVEL5:	    BSF				PORTB,3		;
+		     SUBT2V			.2,.15
+		    BCF				PORTB,3
+		     SUBT2V			.0,.137	    ;CHECAR
+		    GOTO			NIVEL5
+
+NIVEL6:	    BSF				PORTB,3		;
+		     SUBT2V			.46,.1
+		    BCF				PORTB,3
+		     SUBT3V			.1,.69,.1	    ;
+		    GOTO			NIVEL6	               
+
+NIVEL7:	    BSF				PORTB,3		;
+		     SUBT3V			.1,.3,.15
+		    BCF				PORTB,3
+		     SUBT3V			.1,.61,.1	    ;
+		    GOTO			NIVEL7	               
+
+NIVEL8:	    BSF				PORTB,3		;
+		     SUBT3V			.1,.61,.1
+		    BCF				PORTB,3
+		     SUBT3V			.1,.3,.15	    ;
+		    GOTO			NIVEL8	               
+
+NIVEL9:	    BSF				PORTB,3		;
+		     SUBT3V			.1,.69,.1
+		    BCF				PORTB,3
+		     SUBT2V			.46,.1	    ;
+		    GOTO			NIVEL9	               
+NIVEL10:	BSF				PORTB,3		;
+		     SUBT2V			.0,.137     ;CHECAR
+		    BCF				PORTB,3
+		     SUBT2V			.2,.15	    ;
+		    GOTO			NIVEL10	          
+
+NIVEL11:	BSF				PORTB,3		;
+		     SUBT2V			.0,.151     ;CHECAR
+		    BCF				PORTB,3
+		     SUBT3V			.1,.1,.19	    ;
+		    GOTO			NIVEL11	           
+
+NIVEL12:	BSF				PORTB,3		;
+		     SUBT3V			.1,.0,.163  ;CHECAR
+		    BCF				PORTB,3
+		     SUBT2V			.7,.3	    ;
+		    GOTO			NIVEL12	               
+
+NIVEL13:	BSF				PORTB,3		;
+		     SUBT2V			.1,.65
+		    BCF				PORTB,3
+		     SUBT2V			.0,.26	    ;CHECAR
+		    GOTO			NIVEL13	               
+
+NIVEL14:	BSF				PORTB,3		;
+		     SUBT2V			.1,.70
+		    BCF				PORTB,3
+		     SUBT3V			.3,.1,.1	    ;
+		    GOTO			NIVEL14	               
+
+NIVEL15:	BSF				PORTB,3		;
+		    GOTO			NIVEL15	               
 
 
 
