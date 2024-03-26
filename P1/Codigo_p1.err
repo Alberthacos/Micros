@@ -1,0 +1,33 @@
+Error[138]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 10 : Include files nested too deep
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 11 : Symbol not previously defined (TRISC)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 11 : Executable code and data must be defined in an appropriate section
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 12 : Symbol not previously defined (TRISB)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 12 : Executable code and data must be defined in an appropriate section
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 13 : Symbol not previously defined (STATUS)
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 13 : Symbol not previously defined (RP0)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 13 : Executable code and data must be defined in an appropriate section
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 14 : Executable code and data must be defined in an appropriate section
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 15 : Executable code and data must be defined in an appropriate section
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 16 : Executable code and data must be defined in an appropriate section
+Error[150]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 17 : Labels must be defined in a code or data section when making an object file
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 17 : Symbol not previously defined (PORTA)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 17 : Executable code and data must be defined in an appropriate section
+Error[151]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 18 : Operand contains unresolvable labels or is too complex
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 18 : Executable code and data must be defined in an appropriate section
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 19 : Symbol not previously defined (PORTB)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 19 : Executable code and data must be defined in an appropriate section
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 20 : Symbol not previously defined (PORTC)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 20 : Executable code and data must be defined in an appropriate section
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 21 : Executable code and data must be defined in an appropriate section
+Error[150]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 24 : Labels must be defined in a code or data section when making an object file
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 24 : Symbol not previously defined (PORTA)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 24 : Executable code and data must be defined in an appropriate section
+Error[151]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 25 : Operand contains unresolvable labels or is too complex
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 25 : Executable code and data must be defined in an appropriate section
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 26 : Executable code and data must be defined in an appropriate section
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 27 : Symbol not previously defined (PORTB)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 27 : Executable code and data must be defined in an appropriate section
+Error[113]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 28 : Symbol not previously defined (PORTC)
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 28 : Executable code and data must be defined in an appropriate section
+Error[150]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 29 : Labels must be defined in a code or data section when making an object file
+Error[152]   C:\USERS\AMF01\DOCUMENTS\MICROS\P1\ENCABEZADO.INC 29 : E

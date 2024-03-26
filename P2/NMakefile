@@ -1,0 +1,19 @@
+# MPLAB IDE generated this makefile for use with Microsoft `nmake'.
+# Project: P2.mcp
+# Date: Mon Mar 18 18:38:38 2024
+
+AS = MPASMWIN.exe
+CC = 
+LD = mplink.exe
+AR = mplib.exe
+RM = del
+
+"P2.cof" : "P2P.o"
+	$(CC) /p16F887 "P2P.o" /u_DEBUG /z__MPLAB_BUILD=1 /z__MPLAB_DEBUG=1 /o"P2.cof" /M"P2.map" /W
+
+"P2P.o" : "P2P.ASM" "ENCABEZADO.INC" "MACROS.ASM" "..\..\..\..\..\Program Files (x86)\Microchip\MPASM Suite\P16F887.INC" "SUBTIEMPO.ASM"
+	$(AS) /q /p16F887 "P2P.ASM" /l"P2P.lst" /e"P2P.err" /o"P2P.o" /d__DEBUG=1
+
+"clean" : 
+	$(CC) "P2P.o" "P2P.err" "P2P.lst" "P2.cof" "P2.hex"
+

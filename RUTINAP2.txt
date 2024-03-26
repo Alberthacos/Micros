@@ -1,0 +1,28 @@
+Se presiona PB0 y se ingresa DATO 1 (PORTD) en PORTC Y reg 0X21
+Se presiona PB0 y se ingresa DATO 2 (PORTD) en PORTC Y reg 0X22
+
+*Mover motores con base en la tabla de condiciones para cada uno
+
+Espera a que se oprima PB0 Y realiza la rutina llamada LUCES 
+Suma DATO 1 Y DATO 2
+	Si genera acarreo ejecuta la rutina parpadeo y encender PB7, Despues:
+	sacar el resultado de la suma en PORTC
+
+Espera a que se oprima PB0, apagar PB7, ejecuta la rutina LUCES
+Realiza la resta DATO1-DATO2
+	Si el resultado es negativo llama a la rutina PARPADEO
+	Sacar la magnitud del resultado en PORTC
+
+Esperar a que se oprima PB0, apagar led PB7 y llamar a la rutina LUCES
+Realiza la multiplicacion DAT1*DATO2
+	SI genera acarreo llama la rutina PARPADEO
+	Sacar el resultao de la multiplicacion en PORTC
+
+Esperar a que se oprima PB0, apagar led PB7 y llamar a la rutina LUCES
+Realiza la division de DATO1/DATO2
+	SI el resultado tiene residudo llama a PARPADEO
+	Sacar el resultado de la division por el PORTC
+
+
+DIVISIO ENTRE 0 Y DIVISION CON RESIDUO CON Y SIN ENTEROS
+

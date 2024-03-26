@@ -1,0 +1,109 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Sun Mar 24 21:58:25 2024
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000400
+                   .cinit    romdata   0x000200    program   0x000004
+      .config_2007_P2_2.O       code   0x002007    program   0x000002
+      .config_2008_P2_2.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000201      
+                            0x002007    0x002008      
+            516 out of 8455 program addresses used, program memory utilization is 6%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                  DECRE2V   0x0001e8    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                  DECRE3V   0x0001f5    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                      FIN   0x0001de    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_2   0x000042    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_3   0x0000a4    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_4   0x000106    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_5   0x000168    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_2   0x00005e    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_3   0x0000c0    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_4   0x000122    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_5   0x000184    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               POSICION_0   0x00000d    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_1   0x000016    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_2   0x000036    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_3   0x000098    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_4   0x0000fa    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_5   0x00015c    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                RECARGA3V   0x0001f3    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                SEG_POS_1   0x000034    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_2   0x000096    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_3   0x0000f8    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_4   0x00015a    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_5   0x0001bc    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     ST1V   0x0001df    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                     ST2V   0x0001e6    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                     ST3V   0x0001f1    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                    T10MS   0x0001c6    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                    T12MS   0x0001ce    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T1_D   0x000031    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                    T25MS   0x0001d6    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T2_D   0x000093    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T3_D   0x0000f5    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T4_D   0x000157    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T5_D   0x0001b9    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T_1S   0x0001be    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+             _.org_0_000F   0x00000f    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+             _.org_0_0012   0x000012    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+             _.org_0_01DE   0x0001de    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               POSICION_0   0x00000d    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+             _.org_0_000F   0x00000f    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+             _.org_0_0012   0x000012    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_1   0x000016    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T1_D   0x000031    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_1   0x000034    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_2   0x000036    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_2   0x000042    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_2   0x00005e    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T2_D   0x000093    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_2   0x000096    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_3   0x000098    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_3   0x0000a4    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_3   0x0000c0    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T3_D   0x0000f5    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_3   0x0000f8    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_4   0x0000fa    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_4   0x000106    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_4   0x000122    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T4_D   0x000157    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_4   0x00015a    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                   POSI_5   0x00015c    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_ANT_5   0x000168    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+               GIRA_HOR_5   0x000184    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T5_D   0x0001b9    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                SEG_POS_5   0x0001bc    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     T_1S   0x0001be    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                    T10MS   0x0001c6    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                    T12MS   0x0001ce    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                    T25MS   0x0001d6    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+             _.org_0_01DE   0x0001de    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                      FIN   0x0001de    program     static C:\Users\amf01\Documents\Micros\2.2\P2_2.asm
+                     ST1V   0x0001df    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                     ST2V   0x0001e6    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                  DECRE2V   0x0001e8    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                     ST3V   0x0001f1    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                RECARGA3V   0x0001f3    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+                  DECRE3V   0x0001f5    program     static C:\Users\amf01\Documents\Micros\2.2\SUBTIEMPO_2.2.ASM
+
+

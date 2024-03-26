@@ -1,0 +1,14 @@
+;Ejercicio 01
+;LEA EL PB Y ESE VALOR LO SAQUE POR EL PC
+
+
+			INCLUDE 	<ENCABEZADO.INC>
+			CLRF 		TRISC 
+			BCF 		STATUS,RP0
+			MOVF		PORTB,W 
+			MOVWF		PORTC
+			GOTO 		$-2
+			END
+			
+			
+

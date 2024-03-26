@@ -1,0 +1,15 @@
+
+				INCLUDE			<ENCABEZADO.INC>
+				CLRF 			TRISC
+				BCF				TRISB,7		;SACA 0 en PORTB,7
+				BCF				STATUS,RP0	;B0
+				CLRF			0X20	
+				CLRF			0X21
+				CLRF			0X22	
+PUSHBUTTON:		BTFSS			PORTB,0			;PORTA.0 = 1?
+				GOTO			PUSHBUTTON		;SI  PORTA.0 = 0 
+				MOVLW			0XFF			;SI  PORTA.0 = 1 
+				MOVWF			PORTC
+				GOTO 			$
+				END
+						

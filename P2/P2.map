@@ -1,0 +1,219 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Fri Mar 22 08:15:09 2024
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000554
+                   .cinit    romdata   0x0002aa    program   0x000004
+        .config_2007_P2.O       code   0x002007    program   0x000002
+        .config_2008_P2.O       code   0x002008    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0002ab      
+                            0x002007    0x002008      
+            686 out of 8455 program addresses used, program memory utilization is 8%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                ARRANQUE1   0x000029    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE2   0x00004a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE3   0x00006b    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE4   0x00008c    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                CARGA_RES   0x0001b1    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO1   0x000024    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO2   0x000045    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO3   0x000066    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO4   0x000087    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS1   0x0000a8    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  CASOS10   0x00015d    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS2   0x0000af    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS3   0x0000c7    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS4   0x0000db    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS5   0x0000f1    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS6   0x000107    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS7   0x00011f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS8   0x000135    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS9   0x000149    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                CONTINUAR   0x000198    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    DATO1   0x000012    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    DATO2   0x00001b    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  DECRE2V   0x000292    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                  DECRE3V   0x00029f    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                  DEC_DIV   0x0001c9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                DEC_MULTI   0x0001ad    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    DIV_Z   0x0001d9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+            ENCENDER_LEDS   0x0001fd    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO1   0x000034    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO2   0x000055    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO3   0x000076    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO4   0x000097    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             EXCEDE_MULTI   0x0001b6    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                      FIN   0x000288    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    LUCES   0x00021a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR1   0x000038    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR2   0x000059    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR3   0x00007a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR4   0x00009b    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 NEGATIVO   0x00019a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 PARPADEO   0x00020f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+              PB_DIVISION   0x0001b9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+        PB_MULTIPLICACION   0x00019f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 PB_RESTA   0x000189    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   PB_STV   0x0001f7    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_SUMA   0x000175    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_VAR1   0x0001dc    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_VAR2   0x0001e5    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_VAR3   0x0001ee    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                RECARGA3V   0x00029d    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                  RESIDUO   0x0001d0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                RESULTADO   0x000187    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                RESUL_DIV   0x0001d5    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   SERVO0   0x0000ad    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO100   0x00010c    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO120   0x000124    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO140   0x00013a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO160   0x00014e    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO180   0x000162    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO20   0x0000b4    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO40   0x0000cc    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO60   0x0000e0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO80   0x0000f6    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                     ST1V   0x000289    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                     ST2V   0x000290    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                     ST3V   0x00029b    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+               SUMA_MULTI   0x0001b4    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   T150US   0x000282    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    T25MS   0x00026a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   T300MS   0x000272    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   T500MS   0x00027a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0013   0x000013    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0016   0x000016    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_001C   0x00001c    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_001F   0x00001f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0176   0x000176    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0179   0x000179    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_018A   0x00018a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_018D   0x00018d    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01A0   0x0001a0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01A3   0x0001a3    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01BA   0x0001ba    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01BD   0x0001bd    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01DD   0x0001dd    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01E0   0x0001e0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01E6   0x0001e6    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01E9   0x0001e9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01EF   0x0001ef    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01F2   0x0001f2    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01F8   0x0001f8    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01FB   0x0001fb    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0217   0x000217    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0288   0x000288    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    DATO1   0x000012    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0013   0x000013    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0016   0x000016    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    DATO2   0x00001b    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_001C   0x00001c    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_001F   0x00001f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO1   0x000024    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE1   0x000029    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO1   0x000034    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR1   0x000038    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO2   0x000045    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE2   0x00004a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO2   0x000055    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR2   0x000059    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO3   0x000066    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE3   0x00006b    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO3   0x000076    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR3   0x00007a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    CASO4   0x000087    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                ARRANQUE4   0x00008c    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                EN_RANGO4   0x000097    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               MOV_MOTOR4   0x00009b    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS1   0x0000a8    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   SERVO0   0x0000ad    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS2   0x0000af    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO20   0x0000b4    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS3   0x0000c7    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO40   0x0000cc    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS4   0x0000db    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO60   0x0000e0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS5   0x0000f1    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  SERVO80   0x0000f6    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS6   0x000107    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO100   0x00010c    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS7   0x00011f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO120   0x000124    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS8   0x000135    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO140   0x00013a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   CASOS9   0x000149    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO160   0x00014e    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  CASOS10   0x00015d    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 SERVO180   0x000162    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_SUMA   0x000175    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0176   0x000176    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0179   0x000179    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                RESULTADO   0x000187    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 PB_RESTA   0x000189    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_018A   0x00018a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_018D   0x00018d    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                CONTINUAR   0x000198    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 NEGATIVO   0x00019a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+        PB_MULTIPLICACION   0x00019f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01A0   0x0001a0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01A3   0x0001a3    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                DEC_MULTI   0x0001ad    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                CARGA_RES   0x0001b1    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+               SUMA_MULTI   0x0001b4    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             EXCEDE_MULTI   0x0001b6    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+              PB_DIVISION   0x0001b9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01BA   0x0001ba    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01BD   0x0001bd    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  DEC_DIV   0x0001c9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  RESIDUO   0x0001d0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                RESUL_DIV   0x0001d5    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    DIV_Z   0x0001d9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_VAR1   0x0001dc    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01DD   0x0001dd    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01E0   0x0001e0    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_VAR2   0x0001e5    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01E6   0x0001e6    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01E9   0x0001e9    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                  PB_VAR3   0x0001ee    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01EF   0x0001ef    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01F2   0x0001f2    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   PB_STV   0x0001f7    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01F8   0x0001f8    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_01FB   0x0001fb    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+            ENCENDER_LEDS   0x0001fd    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                 PARPADEO   0x00020f    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0217   0x000217    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    LUCES   0x00021a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                    T25MS   0x00026a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   T300MS   0x000272    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   T500MS   0x00027a    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                   T150US   0x000282    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+             _.org_0_0288   0x000288    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                      FIN   0x000288    program     static C:\Users\amf01\Documents\Micros\P2\P2.ASM
+                     ST1V   0x000289    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                     ST2V   0x000290    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                  DECRE2V   0x000292    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                     ST3V   0x00029b    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                RECARGA3V   0x00029d    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+                  DECRE3V   0x00029f    program     static C:\Users\amf01\Documents\Micros\P2\SUBTIEMPO.ASM
+
+

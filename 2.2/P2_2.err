@@ -1,0 +1,19 @@
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\ENCABEZADO_2.2.ASM 14 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\ENCABEZADO_2.2.ASM 15 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 5 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 6 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 13 : Found label after column 1. (POSICION1)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 14 : Found label after column 1. (TIEMPO1)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 16 : Found label after column 1. (POSICION2)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 17 : Found label after column 1. (TIEMPO2)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 19 : Found label after column 1. (POSICION3)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 20 : Found label after column 1. (TIEMPO3)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 22 : Found label after column 1. (POSICION4)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 23 : Found label after column 1. (TIEMPO4)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 25 : Found label after column 1. (POSICION5)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 26 : Found label after column 1. (TIEMPO5)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 28 : Found label after column 1. (DATO)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 29 : Found label after column 1. (DATO2)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 30 : Found label after column 1. (DATO3)
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 31 : Found label after column 1. (DATO4)
+Warning[202] C:\USERS\AMF01\DOCUMENTS\MICROS\2.2\P2_2.ASM 86 : Argument out of range.  Least significant bits used.

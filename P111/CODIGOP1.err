@@ -1,0 +1,5 @@
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P111\ENCABEZADO.INC 14 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P111\ENCABEZADO.INC 15 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P111\CODIGOP1.ASM 3 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P111\CODIGOP1.ASM 4 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] C:\USERS\AMF01\DOCUMENTS\MICROS\P111\CODIGOP1.ASM 17 : Found opcode in column 1. (GOTO)

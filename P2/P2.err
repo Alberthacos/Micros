@@ -1,0 +1,8 @@
+Warning[207] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\MACROS.ASM 7 : Found label after column 1. (SUBT2V)
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\ENCABEZADO.INC 15 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\ENCABEZADO.INC 16 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\P2.ASM 9 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\P2.ASM 10 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\P2.ASM 12 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\P2.ASM 13 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\AMF01\DOCUMENTS\MICROS\P2\P2.ASM 14 : Register in operand not in bank 0.  Ensure that bank bits are correct.

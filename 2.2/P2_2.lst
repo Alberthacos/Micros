@@ -1,0 +1,1743 @@
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+                      00002                         INCLUDE <ENCABEZADO_2.2.ASM>
+                      00001                         INCLUDE         <MACROS_2.2.ASM>
+                      00001 SUBT1V:                 MACRO           VAR1
+                      00002                                 MOVLW           VAR1
+                      00003                                 MOVWF           0X60
+                      00004                                 CALL            ST1V
+                      00005                                 ENDM
+                      00006 ;****************************
+                      00007 SUBT2V:                 MACRO           VAR1,VAR2
+                      00008                                 MOVLW           VAR1
+                      00009                                 MOVWF           0X61
+                      00010                                 MOVLW           VAR2
+                      00011                                 MOVWF           0X62
+                      00012                                 CALL            ST2V
+                      00013                                 ENDM
+                      00014 ;****************************
+                      00015 SUBT3V:                 MACRO           VAR1,VAR2,VAR3
+                      00016                                 MOVLW           VAR1
+                      00017                                 MOVWF           0X64
+                      00018                                 MOVLW           VAR2
+                      00019                                 MOVWF           0X65
+                      00020                                 MOVLW           VAR3
+                      00021                                 MOVWF           0X66
+                      00022                                 CALL            ST3V
+                      00023                                 ENDM
+                      00024 ;****************************
+                      00025 PUSH_ANTIR:             MACRO           PUERTO,PIN
+                      00026                                 BTFSS           PUERTO,PIN
+                      00027                                 GOTO            $-1
+                      00028                                 CALL            T25MS
+                      00029                                 BTFSC           PUERTO,PIN
+                      00030                                 GOTO            $-1
+                      00031                                 CALL            T25MS
+                      00032                                 ENDM
+                      00033 
+                      00034 
+                      00035 
+                      00036 
+                      00037 ;MOTOR EN SENTIDO ANTIHORARIO
+                      00038 ;DEPENDIENDO DE LAS CARACTERISTICAS DE NUESTRO MOTOR (BIPOLAR O UNIPOLAR) SE SELECCIONA UNA CONFIGURACIO
+                            N
+                      00039 ;EN ESTE CASO DECIDIMOS USAR MEDIO PASO PARA TENER UNA MAYOR PRECISI�N.
+                      00040 ;RECORDEMOS QUE LAS SALIDAS DEL PORTC SE CONECTAN A NUESTRO CONTROLADOR QUE A SU VEZ ESTE CONTROLA LA AC
+                            TIVACION
+                      00041 ;DE LAS BOBINAS INTERNAS DE NUESTRO MOTOR.
+                      00042 
+                      00043                                                                                 ;PUERTO C SALIDAS
+                      00044 PIZQ:                   MACRO                                   ;C3             C2              C1      
+                                    C0
+                      00045                                 MOVLW           0X08            ;1              0               0       
+                                    0
+                      00046                                 MOVWF           PORTC           
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00047                                 CALL            T10MS           ;FRECUENCIA M�XIMA A LA QUE TRABAJA EL
+                             MOTOR
+                      00048                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+                      00049                                 MOVWF           PORTC
+                      00050                                 CALL            T10MS
+                      00051                                 MOVLW           0X04            ;0              1               0       
+                                    0       
+                      00052                                 MOVWF           PORTC
+                      00053                                 CALL            T10MS
+                      00054                                 MOVLW           0X06            ;0              1               1       
+                                    0               
+                      00055                                 MOVWF           PORTC   
+                      00056                                 CALL            T10MS
+                      00057                                 MOVLW           0X02            ;0              0               1       
+                                    0
+                      00058                                 MOVWF           PORTC
+                      00059                                 CALL            T10MS
+                      00060                                 MOVLW           0X03            ;0              0               1       
+                                    1
+                      00061                                 MOVWF           PORTC
+                      00062                                 CALL            T10MS
+                      00063                                 MOVLW           0X01            ;0              0               0       
+                                    1
+                      00064                                 MOVWF           PORTC
+                      00065                                 CALL            T10MS
+                      00066                                 MOVLW           0X09            ;1              0               0       
+                                    1
+                      00067                                 MOVWF           PORTC
+                      00068                                 ENDM
+                      00069 
+                      00070 ;MOTOR EN SENTIDO HORARIO
+                      00071 
+                      00072 PDER:                   MACRO
+                      00073                                 MOVLW           0X09            ;1              0               0       
+                                    1
+                      00074                                 MOVWF           PORTC
+                      00075                                 CALL            T10MS
+                      00076                                 MOVLW           0X01            ;0              0               0       
+                                    1
+                      00077                                 MOVWF           PORTC
+                      00078                                 CALL            T10MS
+                      00079                                 MOVLW           0X03            ;0              0               1       
+                                    1
+                      00080                                 MOVWF           PORTC
+                      00081                                 CALL            T10MS
+                      00082                                 MOVLW           0X02            ;0              0               1       
+                                    0
+                      00083                                 MOVWF           PORTC
+                      00084                                 CALL            T10MS
+                      00085                                 MOVLW           0X06            ;0              1               1       
+                                    0
+                      00086                                 MOVWF           PORTC
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00087                                 CALL            T10MS
+                      00088                                 MOVLW           0X04            ;0              1               0       
+                                    0
+                      00089                                 MOVWF           PORTC
+                      00090                                 CALL            T10MS
+                      00091                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+                      00092                                 MOVWF           PORTC
+                      00093                                 CALL            T10MS
+                      00094                                 MOVLW           0X08            ;1              0               0       
+                                    0
+                      00095                                 MOVWF           PORTC
+                      00096                                 CALL            T10MS
+                      00097                                 MOVLW           0X09            ;1              0               0       
+                                    1
+                      00098                                 MOVWF           PORTC
+                      00099                                 CALL            T10MS
+                      00100                                 MOVLW           0X01            ;0              0               0       
+                                    1
+                      00101                                 MOVWF           PORTC
+                      00102                                 CALL            T10MS
+                      00103                                 MOVLW           0X03            ;0              0               1       
+                                    1
+                      00104                                 MOVWF           PORTC
+                      00105                                 CALL            T10MS
+                      00106                                 MOVLW           0X02            ;0              0               1       
+                                    0
+                      00107                                 MOVWF           PORTC
+                      00108                                 CALL            T10MS
+                      00109                                 MOVLW           0X06            ;0              1               1       
+                                    0
+                      00110                                 MOVWF           PORTC
+                      00111                                 CALL            T10MS
+                      00112                                 MOVLW           0X04            ;0              1               0       
+                                    0
+                      00113                                 MOVWF           PORTC
+                      00114                                 CALL            T10MS
+                      00115                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+                      00116                                 MOVWF           PORTC
+                      00117                                 CALL            T10MS
+                      00118                                 MOVLW           0X08            ;1              0               0       
+                                    0
+                      00119                                 MOVWF           PORTC
+                      00120                                 CALL            T10MS
+                      00121                                 ENDM
+                      00122 
+                      00123 APAGADO:                MACRO
+                      00124                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+                      00125                                 ENDM
+                      00126 
+                      00002                         PROCESSOR       16F887                  
+2007   23E4           00003                         __CONFIG        0X2007,23E4             
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+2008   3FFF           00004                         __CONFIG        0X2008,3FFF
+                      00005                         INCLUDE         <P16F887.INC>   
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F887 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00809         LIST
+                      00006                         ORG                     0X0000
+0000   0185           00007                         CLRF            PORTA                   
+0001   0186           00008                         CLRF            PORTB   
+0002   0187           00009                         CLRF            PORTC
+0003   0188           00010                         CLRF            PORTD
+0004   0189           00011                         CLRF            PORTE
+0005   1683           00012                         BSF                     STATUS,RP0              ;B1
+0006   1703           00013                         BSF                     STATUS,RP1              ;B3
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0007   0188           00014                         CLRF            ANSEL                   
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   0189           00015                         CLRF            ANSELH          
+0009   1303           00016                         BCF                     STATUS,RP1              ;B1
+                      00003 
+                      00004 ;DEFINIMOS LAS SALIDAS DEL MICROCONTROLADOR
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000A   0187           00005                         CLRF            TRISC                   ;PORTC SALIDA 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000B   1086           00006                         BCF                     TRISB,1
+000C   1283           00007                         BCF                     STATUS,RP0              ;B0
+                      00008                         
+                      00009                 
+                      00010 
+                      00011 ;*********************************************************************************************
+                      00012 ;DECLARACION DE REGISTROS A EMPLEAR
+Warning[207]: Found label after column 1. (POSICION1)
+  00000020            00013                         POSICION1       EQU             0X20    ;GUARDAMOS EN UN REGISTRO DE PROPOSITO G
+                            ENERAL  
+Warning[207]: Found label after column 1. (TIEMPO1)
+  00000021            00014                         TIEMPO1         EQU             0X21    ;CADA UNO DE LOS DATOS INGRESADOS POR EL
+                             USUARIO
+                      00015                                                                                 ;A TRAVES DEL PORTD     
+Warning[207]: Found label after column 1. (POSICION2)
+  00000022            00016                         POSICION2       EQU             0X22    
+Warning[207]: Found label after column 1. (TIEMPO2)
+  00000023            00017                         TIEMPO2         EQU             0X23
+                      00018         
+Warning[207]: Found label after column 1. (POSICION3)
+  00000024            00019                         POSICION3       EQU             0X24    
+Warning[207]: Found label after column 1. (TIEMPO3)
+  00000025            00020                         TIEMPO3         EQU             0X25
+                      00021         
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[207]: Found label after column 1. (POSICION4)
+  00000026            00022                         POSICION4       EQU             0X26
+Warning[207]: Found label after column 1. (TIEMPO4)
+  00000027            00023                         TIEMPO4         EQU             0X27
+                      00024 
+Warning[207]: Found label after column 1. (POSICION5)
+  00000028            00025                         POSICION5       EQU             0X28
+Warning[207]: Found label after column 1. (TIEMPO5)
+  00000029            00026                         TIEMPO5         EQU             0X29
+                      00027 ;REGISTROS DE APOYO PARA SABER LA DIFERENCIA ENTRE LA POSCION ACTUAL Y LA POSTERIOR
+Warning[207]: Found label after column 1. (DATO)
+  00000031            00028                         DATO            EQU             0X31
+Warning[207]: Found label after column 1. (DATO2)
+  00000032            00029                         DATO2           EQU             0X32
+Warning[207]: Found label after column 1. (DATO3)
+  00000033            00030                         DATO3           EQU             0X33
+Warning[207]: Found label after column 1. (DATO4)
+  00000034            00031                         DATO4           EQU             0X34
+                      00032 
+                      00033 ;******************************************************************************************
+                      00034 ;ENVIAMOS EL MOTOR A LA POSICION 0 GRADOS
+                      00035 
+000D   1486           00036 POSICION_0:     BSF                     PORTB,1                 ;ENCENDEMOS EL LED DEL SENSOR
+                      00037 ;                       PIZQ                                            ;GIRAMOS EL MOTOR A LA IZQUIERDA
+                      00038 ;                       BTFSS           PORTB,0                 ;SALIDA DEL FOTORANSISTOR QUE PREGUNTA S
+                            I B7=1? 
+                      00039 ;                       GOTO            POSICION_0              ;NO, VUELVE A REPETIR EL CICLO
+                      00040 ;                       APAGADO                                         ;APAGA EL MOTOR
+                      00041 ;                       BCF                     PORTB,1                 ;APAGA EL LED DEL SENSOR
+                      00042 
+                      00043 ;GUARDAMOS POSICIONES Y TIEMPOS (PARA LAS 5 POSICIONES Y 5 TIEMPOS HACEMOS LO MISMO)
+                      00044 
+                      00045                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00046                         ;MOVF           PORTD,W                 ;LEE LO QUE  TIENE EL PUERTO D Y CARGALO
+                             EN EL ACUMULADOR
+                      00047                         ;MOVWF          POSICION1               ;W->POSICION1
+                      00048                         ;MOVWF          DATO                    ;REGISTRO DE APOYO PARA LA DIFERENCIA DE
+                             GRADOS (CUANTO LE FALTA GIRAR PARA LLEGAR A ESA POSICION) (W->DATO)
+                      00049                         ;MOVWF          PORTC                   ;REGISTRO DE APOYO PARA LA DIFERENCIA DE
+                             GRADOS (CUANTO LE FALTA GIRAR PARA LLEGAR A ESA POSICION) (W->DATO)
+                      00050                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00051                         ;MOVF           PORTD,W                 ;LEE LO QUE  TIENE EL PUERTO D Y CARGALO
+                             EN EL ACUMULADOR
+                      00052                         ;MOVWF          TIEMPO1                 ;GUARDALO EN EL TIEMPO 1
+                      00053 
+                      00054                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00055                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00056                         ;MOVWF          POSICION2               ;W->POSICION2
+                      00057                         ;MOVWF          DATO2                   ;W->DATO2
+                      00058                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00059                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00060                         ;MOVWF          TIEMPO2                 ;W->TIEMPO2
+                      00061 
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00062                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00063                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00064                         ;MOVWF          POSICION3               ;W->POSICION3
+                      00065                         ;MOVWF          DATO3                   ;W->DATO3
+                      00066                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00067                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00068                         ;MOVWF          TIEMPO3                 ;W->TIEMPO3
+                      00069                 
+                      00070                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00071                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00072                         ;MOVWF          POSICION4               ;W->POSICION4
+                      00073                         ;MOVWF          DATO4                   ;W->DATO4
+                      00074                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00075                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00076                         ;MOVWF          TIEMPO4                 ;W->TIEMPO4
+                      00077 
+                      00078                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00079                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00080                         ;MOVWF          POSICION5               ;W->POSICION4
+                      00081                         ;PUSH_ANTIR     PORTB,0                 ;B0 FUE PULSADO?
+                      00082                         ;MOVF           PORTD,W                 ;W=PORTD
+                      00083                         ;MOVWF          TIEMPO5                 ;W->TIEMPO5
+                      00084 
+                      00085                         PUSH_ANTIR      PORTB,0                 ;B0 FUE PULSADO?
+000E   1C06               M                                 BTFSS           PORTB,0
+000F   2???               M                                 GOTO            $-1
+0010   2???               M                                 CALL            T25MS
+0011   1806               M                                 BTFSC           PORTB,0
+0012   2???               M                                 GOTO            $-1
+0013   2???               M                                 CALL            T25MS
+Warning[202]: Argument out of range.  Least significant bits used.
+0014   306A           00086             MOVLW       .362
+0015   00A0           00087             MOVWF       POSICION1
+                      00088 
+                      00089 ;*****************************************************************************************
+                      00090 ;EJECUTA LA POSICION 1
+                      00091 
+                      00092 POSI_1:         PIZQ                                            ;GIRAMOS EL MOTOR A LA IZQUIERDA
+0016   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0017   0087               M                                 MOVWF           PORTC           
+0018   2???               M                                 CALL            T10MS           ;FRECUENCIA M�XIMA A LA QUE TRABAJA EL
+                             MOTOR
+0019   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+001A   0087               M                                 MOVWF           PORTC
+001B   2???               M                                 CALL            T10MS
+001C   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0       
+001D   0087               M                                 MOVWF           PORTC
+001E   2???               M                                 CALL            T10MS
+001F   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0               
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0020   0087               M                                 MOVWF           PORTC   
+0021   2???               M                                 CALL            T10MS
+0022   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+0023   0087               M                                 MOVWF           PORTC
+0024   2???               M                                 CALL            T10MS
+0025   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0026   0087               M                                 MOVWF           PORTC
+0027   2???               M                                 CALL            T10MS
+0028   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+0029   0087               M                                 MOVWF           PORTC
+002A   2???               M                                 CALL            T10MS
+002B   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+002C   0087               M                                 MOVWF           PORTC
+002D   0BA0           00093                         DECFSZ          POSICION1,F             ;POSICION1-1=0?
+002E   2???           00094                         GOTO            POSI_1                  ;NO, SALTA A POSI_1
+                      00095                         APAGADO                                         ;APAGA EL MOTOR
+002F   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+0030   2???           00096                         CALL            T_1S                    ;LLAMA A 1 SEGUNDO
+0031   0BA1           00097 T1_D:           DECFSZ          TIEMPO1,F               ;TIEMPO1-1=0?
+0032   2???           00098                         GOTO            SEG_POS_1               ;NO, SALTA A SEG_POS_1
+0033   2???           00099                         GOTO            FIN                     ;SALTA A POSI_2
+0034   2???           00100 SEG_POS_1:      CALL            T_1S                    ;LLAMA A 1 SEGUNDO
+0035   2???           00101                         GOTO            T1_D                    ;SALTA A T1_D
+                      00102             
+                      00103 ;*****************************************************************************************
+                      00104 ;EJECUTA LA POSICION 2 (ESTE PROCEDIMIENTO ES SIMILAR HASTA LA POSICION 5)
+                      00105 
+0036   0831           00106 POSI_2:         MOVF            DATO,W                  ;POSICION1=DATO=W
+0037   0222           00107                         SUBWF           POSICION2,W             ;POSICION2-POSICION1
+0038   00B1           00108                         MOVWF           DATO                    ;W->DATO
+0039   1903           00109                         BTFSC           STATUS,Z                ;Z=0?
+003A   2???           00110                         GOTO            T2_D                    ;NO, SIGNIFICA QUE LAS POSICIONES SON LA
+                            S MISMAS (DECREMENTA EL TIEMPO)
+003B   0831           00111                         MOVF            DATO,W                  ;W=DATO
+003C   1803           00112                         BTFSC           STATUS,C                ;C=0? 
+003D   2???           00113                         GOTO            GIRA_ANT_2              ;NO, SALTA A GIRA_ANT_2
+003E   0831           00114                         MOVF            DATO,W                  ;W=DATO
+003F   3C00           00115                         SUBLW           0X00                    ;DATO-0X00
+0040   00B1           00116                         MOVWF           DATO                    ;W->DATO
+0041   2???           00117                         GOTO            GIRA_HOR_2              ;SALTA A GIRA_HOR_2
+                      00118                         
+                      00119 GIRA_ANT_2:     PIZQ                                            ;GIRAMOS EL MOTOR A LA IZQUIERDA
+0042   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0043   0087               M                                 MOVWF           PORTC           
+0044   2???               M                                 CALL            T10MS           ;FRECUENCIA M�XIMA A LA QUE TRABAJA EL
+                             MOTOR
+0045   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0046   0087               M                                 MOVWF           PORTC
+0047   2???               M                                 CALL            T10MS
+0048   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0       
+0049   0087               M                                 MOVWF           PORTC
+004A   2???               M                                 CALL            T10MS
+004B   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0               
+004C   0087               M                                 MOVWF           PORTC   
+004D   2???               M                                 CALL            T10MS
+004E   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+004F   0087               M                                 MOVWF           PORTC
+0050   2???               M                                 CALL            T10MS
+0051   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0052   0087               M                                 MOVWF           PORTC
+0053   2???               M                                 CALL            T10MS
+0054   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+0055   0087               M                                 MOVWF           PORTC
+0056   2???               M                                 CALL            T10MS
+0057   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+0058   0087               M                                 MOVWF           PORTC
+0059   0BB1           00120                         DECFSZ  DATO,F                          ;DATO-1=0?
+005A   2???           00121                         GOTO    GIRA_ANT_2                      ;NO, SALTA A GIRA_ANT_2
+                      00122                         APAGADO                                         ;APAGA EL MOTOR
+005B   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+005C   2???           00123                         CALL    T_1S                            ;LLAMA A 1 SEGUNDO
+005D   2???           00124                         GOTO    T2_D                            ;SALTA A T2_D
+                      00125 
+                      00126 GIRA_HOR_2:     PDER                                            ;GIRAMOS EL MOTOR A LA DERECHA
+005E   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+005F   0087               M                                 MOVWF           PORTC
+0060   2???               M                                 CALL            T10MS
+0061   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+0062   0087               M                                 MOVWF           PORTC
+0063   2???               M                                 CALL            T10MS
+0064   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0065   0087               M                                 MOVWF           PORTC
+0066   2???               M                                 CALL            T10MS
+0067   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+0068   0087               M                                 MOVWF           PORTC
+0069   2???               M                                 CALL            T10MS
+006A   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+006B   0087               M                                 MOVWF           PORTC
+006C   2???               M                                 CALL            T10MS
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+006D   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+006E   0087               M                                 MOVWF           PORTC
+006F   2???               M                                 CALL            T10MS
+0070   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+0071   0087               M                                 MOVWF           PORTC
+0072   2???               M                                 CALL            T10MS
+0073   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0074   0087               M                                 MOVWF           PORTC
+0075   2???               M                                 CALL            T10MS
+0076   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+0077   0087               M                                 MOVWF           PORTC
+0078   2???               M                                 CALL            T10MS
+0079   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+007A   0087               M                                 MOVWF           PORTC
+007B   2???               M                                 CALL            T10MS
+007C   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+007D   0087               M                                 MOVWF           PORTC
+007E   2???               M                                 CALL            T10MS
+007F   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+0080   0087               M                                 MOVWF           PORTC
+0081   2???               M                                 CALL            T10MS
+0082   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+0083   0087               M                                 MOVWF           PORTC
+0084   2???               M                                 CALL            T10MS
+0085   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+0086   0087               M                                 MOVWF           PORTC
+0087   2???               M                                 CALL            T10MS
+0088   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+0089   0087               M                                 MOVWF           PORTC
+008A   2???               M                                 CALL            T10MS
+008B   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+008C   0087               M                                 MOVWF           PORTC
+008D   2???               M                                 CALL            T10MS
+008E   0BB1           00127                         DECFSZ  DATO,F                          ;DATO-1=0?
+008F   2???           00128                         GOTO    GIRA_HOR_2                      ;NO, SALTA A GIRA_HOR_2
+                      00129                         APAGADO                                         ;APAGA EL MOTOR
+0090   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+0091   2???           00130                         CALL    T_1S                            ;LLAMA A 1 SEGUNDO
+0092   2???           00131                         GOTO    T2_D                            ;SALTA A T2_D
+                      00132 
+0093   0BA3           00133 T2_D:           DECFSZ          TIEMPO2,F               ;TIEMPO2-1=0?
+0094   2???           00134                         GOTO            SEG_POS_2               ;NO, LLAMA A 1 SEGUNDO
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0095   2???           00135                         GOTO            POSI_3                  ;SALTA A POSI_3
+                      00136 
+0096   2???           00137 SEG_POS_2:      CALL            T_1S                    ;LLAMA A 1 SEGUNDO
+0097   2???           00138                         GOTO            T2_D                    ;VUELVE A DECREMENTAR EL TIEMPO
+                      00139 
+                      00140 ;******************************************************************************************
+                      00141 ;EJECUTA LA POSICION 3
+0098   0832           00142 POSI_3:         MOVF            DATO2,W                 
+0099   0224           00143                         SUBWF           POSICION3,W             ;POSICION3-POSICION2
+009A   00B2           00144                         MOVWF           DATO2
+009B   1903           00145                         BTFSC           STATUS,Z                
+009C   2???           00146                         GOTO            T3_D                    
+009D   0832           00147                         MOVF            DATO2,W                 
+009E   1803           00148                         BTFSC           STATUS,C                
+009F   2???           00149                         GOTO            GIRA_ANT_3
+00A0   0832           00150                         MOVF            DATO2,W
+00A1   3C00           00151                         SUBLW           0X00
+00A2   00B2           00152                         MOVWF           DATO2
+00A3   2???           00153                         GOTO            GIRA_HOR_3
+                      00154 
+                      00155 GIRA_ANT_3:     PIZQ                                            ;GIRAMOS EL MOTOR A LA IZQUIERDA
+00A4   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+00A5   0087               M                                 MOVWF           PORTC           
+00A6   2???               M                                 CALL            T10MS           ;FRECUENCIA M�XIMA A LA QUE TRABAJA EL
+                             MOTOR
+00A7   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+00A8   0087               M                                 MOVWF           PORTC
+00A9   2???               M                                 CALL            T10MS
+00AA   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0       
+00AB   0087               M                                 MOVWF           PORTC
+00AC   2???               M                                 CALL            T10MS
+00AD   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0               
+00AE   0087               M                                 MOVWF           PORTC   
+00AF   2???               M                                 CALL            T10MS
+00B0   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+00B1   0087               M                                 MOVWF           PORTC
+00B2   2???               M                                 CALL            T10MS
+00B3   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+00B4   0087               M                                 MOVWF           PORTC
+00B5   2???               M                                 CALL            T10MS
+00B6   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+00B7   0087               M                                 MOVWF           PORTC
+00B8   2???               M                                 CALL            T10MS
+00B9   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+00BA   0087               M                                 MOVWF           PORTC
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00BB   0BB2           00156                         DECFSZ  DATO2,F
+00BC   2???           00157                         GOTO    GIRA_ANT_3
+                      00158                         APAGADO
+00BD   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+00BE   2???           00159                         CALL    T_1S
+00BF   2???           00160                         GOTO    T3_D
+                      00161 
+                      00162 GIRA_HOR_3:     PDER                                            ;GIRAMOS EL MOTOR A LA DERECHA
+00C0   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+00C1   0087               M                                 MOVWF           PORTC
+00C2   2???               M                                 CALL            T10MS
+00C3   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+00C4   0087               M                                 MOVWF           PORTC
+00C5   2???               M                                 CALL            T10MS
+00C6   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+00C7   0087               M                                 MOVWF           PORTC
+00C8   2???               M                                 CALL            T10MS
+00C9   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+00CA   0087               M                                 MOVWF           PORTC
+00CB   2???               M                                 CALL            T10MS
+00CC   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+00CD   0087               M                                 MOVWF           PORTC
+00CE   2???               M                                 CALL            T10MS
+00CF   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+00D0   0087               M                                 MOVWF           PORTC
+00D1   2???               M                                 CALL            T10MS
+00D2   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+00D3   0087               M                                 MOVWF           PORTC
+00D4   2???               M                                 CALL            T10MS
+00D5   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+00D6   0087               M                                 MOVWF           PORTC
+00D7   2???               M                                 CALL            T10MS
+00D8   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+00D9   0087               M                                 MOVWF           PORTC
+00DA   2???               M                                 CALL            T10MS
+00DB   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+00DC   0087               M                                 MOVWF           PORTC
+00DD   2???               M                                 CALL            T10MS
+00DE   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+00DF   0087               M                                 MOVWF           PORTC
+00E0   2???               M                                 CALL            T10MS
+00E1   3002               M                                 MOVLW           0X02            ;0              0               1       
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                                    0
+00E2   0087               M                                 MOVWF           PORTC
+00E3   2???               M                                 CALL            T10MS
+00E4   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+00E5   0087               M                                 MOVWF           PORTC
+00E6   2???               M                                 CALL            T10MS
+00E7   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+00E8   0087               M                                 MOVWF           PORTC
+00E9   2???               M                                 CALL            T10MS
+00EA   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+00EB   0087               M                                 MOVWF           PORTC
+00EC   2???               M                                 CALL            T10MS
+00ED   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+00EE   0087               M                                 MOVWF           PORTC
+00EF   2???               M                                 CALL            T10MS
+00F0   0BB2           00163                         DECFSZ  DATO2,F
+00F1   2???           00164                         GOTO    GIRA_HOR_3
+                      00165                         APAGADO
+00F2   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+00F3   2???           00166                         CALL    T_1S
+00F4   2???           00167                         GOTO    T3_D
+                      00168 
+00F5   0BA5           00169 T3_D:           DECFSZ          TIEMPO3,F               
+00F6   2???           00170                         GOTO            SEG_POS_3               
+00F7   2???           00171                         GOTO            POSI_4                  ;SALTA A POSI_4
+00F8   2???           00172 SEG_POS_3:      CALL            T_1S
+00F9   2???           00173                         GOTO            T3_D                    
+                      00174 
+                      00175 ;******************************************************************************************
+                      00176 ;EJECUTA LA POSICION 4
+                      00177                                         
+00FA   0833           00178 POSI_4:         MOVF            DATO3,W                 
+00FB   0226           00179                         SUBWF           POSICION4,W             ;POSICION4-POSICION3
+00FC   00B3           00180                         MOVWF           DATO3
+00FD   1903           00181                         BTFSC           STATUS,Z                
+00FE   2???           00182                         GOTO            T4_D                    
+00FF   0833           00183                         MOVF            DATO3,W                 
+0100   1803           00184                         BTFSC           STATUS,C                
+0101   2???           00185                         GOTO            GIRA_ANT_4
+0102   0833           00186                         MOVF            DATO3,W
+0103   3C00           00187                         SUBLW           0X00
+0104   00B3           00188                         MOVWF           DATO3
+0105   2???           00189                         GOTO            GIRA_HOR_4
+                      00190                         
+                      00191 GIRA_ANT_4:     PIZQ                                            ;GIRAMOS EL MOTOR A LA IZQUIERDA
+0106   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0107   0087               M                                 MOVWF           PORTC           
+0108   2???               M                                 CALL            T10MS           ;FRECUENCIA M�XIMA A LA QUE TRABAJA EL
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                             MOTOR
+0109   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+010A   0087               M                                 MOVWF           PORTC
+010B   2???               M                                 CALL            T10MS
+010C   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0       
+010D   0087               M                                 MOVWF           PORTC
+010E   2???               M                                 CALL            T10MS
+010F   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0               
+0110   0087               M                                 MOVWF           PORTC   
+0111   2???               M                                 CALL            T10MS
+0112   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+0113   0087               M                                 MOVWF           PORTC
+0114   2???               M                                 CALL            T10MS
+0115   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0116   0087               M                                 MOVWF           PORTC
+0117   2???               M                                 CALL            T10MS
+0118   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+0119   0087               M                                 MOVWF           PORTC
+011A   2???               M                                 CALL            T10MS
+011B   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+011C   0087               M                                 MOVWF           PORTC
+011D   0BB3           00192                         DECFSZ  DATO3,F
+011E   2???           00193                         GOTO    GIRA_ANT_4
+                      00194                         APAGADO
+011F   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+0120   2???           00195                         CALL    T_1S
+0121   2???           00196                         GOTO    T4_D
+                      00197 
+                      00198 GIRA_HOR_4:     PDER                                            ;GIRAMOS EL MOTOR A LA DERECHA
+0122   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+0123   0087               M                                 MOVWF           PORTC
+0124   2???               M                                 CALL            T10MS
+0125   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+0126   0087               M                                 MOVWF           PORTC
+0127   2???               M                                 CALL            T10MS
+0128   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0129   0087               M                                 MOVWF           PORTC
+012A   2???               M                                 CALL            T10MS
+012B   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+012C   0087               M                                 MOVWF           PORTC
+012D   2???               M                                 CALL            T10MS
+012E   3006               M                                 MOVLW           0X06            ;0              1               1       
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                                    0
+012F   0087               M                                 MOVWF           PORTC
+0130   2???               M                                 CALL            T10MS
+0131   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+0132   0087               M                                 MOVWF           PORTC
+0133   2???               M                                 CALL            T10MS
+0134   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+0135   0087               M                                 MOVWF           PORTC
+0136   2???               M                                 CALL            T10MS
+0137   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0138   0087               M                                 MOVWF           PORTC
+0139   2???               M                                 CALL            T10MS
+013A   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+013B   0087               M                                 MOVWF           PORTC
+013C   2???               M                                 CALL            T10MS
+013D   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+013E   0087               M                                 MOVWF           PORTC
+013F   2???               M                                 CALL            T10MS
+0140   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0141   0087               M                                 MOVWF           PORTC
+0142   2???               M                                 CALL            T10MS
+0143   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+0144   0087               M                                 MOVWF           PORTC
+0145   2???               M                                 CALL            T10MS
+0146   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+0147   0087               M                                 MOVWF           PORTC
+0148   2???               M                                 CALL            T10MS
+0149   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+014A   0087               M                                 MOVWF           PORTC
+014B   2???               M                                 CALL            T10MS
+014C   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+014D   0087               M                                 MOVWF           PORTC
+014E   2???               M                                 CALL            T10MS
+014F   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0150   0087               M                                 MOVWF           PORTC
+0151   2???               M                                 CALL            T10MS
+0152   0BB3           00199                         DECFSZ  DATO3,F
+0153   2???           00200                         GOTO    GIRA_HOR_4
+                      00201                         APAGADO
+0154   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+0155   2???           00202                         CALL    T_1S
+0156   2???           00203                         GOTO    T4_D
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00204 
+0157   0BA7           00205 T4_D:           DECFSZ          TIEMPO4,F               
+0158   2???           00206                         GOTO            SEG_POS_4               
+0159   2???           00207                         GOTO            POSI_5                  ;SALTA A POSI_5
+015A   2???           00208 SEG_POS_4:      CALL            T_1S
+015B   2???           00209                         GOTO            T4_D                    
+                      00210 
+                      00211 ;******************************************************************************************
+                      00212 ;EJECUTA LA POSICION 5
+                      00213                                         
+015C   0834           00214 POSI_5:         MOVF            DATO4,W                 ;POSICION4=DATO4=W      
+015D   0228           00215                         SUBWF           POSICION5,W             ;POSICION5-POSICION4
+015E   00B4           00216                         MOVWF           DATO4                   ;W->DATO4
+015F   1903           00217                         BTFSC           STATUS,Z                ;Z=0?
+0160   2???           00218                         GOTO            T5_D                    ;NO, SIGNIFICA QUE LAS POSICIONES SON LA
+                            S MISMAS (DECREMENTA EL TIEMPO)
+0161   0834           00219                         MOVF            DATO4,W                 ;W=DATO4
+0162   1803           00220                         BTFSC           STATUS,C                ;C=0? 
+0163   2???           00221                         GOTO            GIRA_ANT_5              ;NO, SALTA A GIRA_ANT_5
+0164   0834           00222                         MOVF            DATO4,W                 ;W=DATO4
+0165   3C00           00223                         SUBLW           0X00                    ;DATO4-0X00
+0166   00B4           00224                         MOVWF           DATO4                   ;W->DATO4
+0167   2???           00225                         GOTO            GIRA_HOR_5              ;SALTA A GIRA_HOR_5
+                      00226                         
+                      00227 GIRA_ANT_5:     PIZQ                                            ;GIRAMOS EL MOTOR A LA IZQUIERDA
+0168   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+0169   0087               M                                 MOVWF           PORTC           
+016A   2???               M                                 CALL            T10MS           ;FRECUENCIA M�XIMA A LA QUE TRABAJA EL
+                             MOTOR
+016B   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+016C   0087               M                                 MOVWF           PORTC
+016D   2???               M                                 CALL            T10MS
+016E   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0       
+016F   0087               M                                 MOVWF           PORTC
+0170   2???               M                                 CALL            T10MS
+0171   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0               
+0172   0087               M                                 MOVWF           PORTC   
+0173   2???               M                                 CALL            T10MS
+0174   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+0175   0087               M                                 MOVWF           PORTC
+0176   2???               M                                 CALL            T10MS
+0177   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+0178   0087               M                                 MOVWF           PORTC
+0179   2???               M                                 CALL            T10MS
+017A   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+017B   0087               M                                 MOVWF           PORTC
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+017C   2???               M                                 CALL            T10MS
+017D   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+017E   0087               M                                 MOVWF           PORTC
+017F   0BB4           00228                         DECFSZ  DATO4,F                         ;DATO4-1=0?
+0180   2???           00229                         GOTO    GIRA_ANT_5                      ;NO, SALTA A GIRA_ANT_5
+                      00230                         APAGADO                                         ;APAGA EL MOTOR
+0181   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+0182   2???           00231                         CALL    T_1S                            ;LLAMA A 1 SEGUNDO
+0183   2???           00232                         GOTO    T5_D                            ;SALTA A T5_D
+                      00233 
+                      00234 GIRA_HOR_5:     PDER                                            ;GIRAMOS EL MOTOR A LA DERECHA
+0184   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+0185   0087               M                                 MOVWF           PORTC
+0186   2???               M                                 CALL            T10MS
+0187   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+0188   0087               M                                 MOVWF           PORTC
+0189   2???               M                                 CALL            T10MS
+018A   3003               M                                 MOVLW           0X03            ;0              0               1       
+                                    1
+018B   0087               M                                 MOVWF           PORTC
+018C   2???               M                                 CALL            T10MS
+018D   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+018E   0087               M                                 MOVWF           PORTC
+018F   2???               M                                 CALL            T10MS
+0190   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+0191   0087               M                                 MOVWF           PORTC
+0192   2???               M                                 CALL            T10MS
+0193   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+0194   0087               M                                 MOVWF           PORTC
+0195   2???               M                                 CALL            T10MS
+0196   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+0197   0087               M                                 MOVWF           PORTC
+0198   2???               M                                 CALL            T10MS
+0199   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+019A   0087               M                                 MOVWF           PORTC
+019B   2???               M                                 CALL            T10MS
+019C   3009               M                                 MOVLW           0X09            ;1              0               0       
+                                    1
+019D   0087               M                                 MOVWF           PORTC
+019E   2???               M                                 CALL            T10MS
+019F   3001               M                                 MOVLW           0X01            ;0              0               0       
+                                    1
+01A0   0087               M                                 MOVWF           PORTC
+01A1   2???               M                                 CALL            T10MS
+01A2   3003               M                                 MOVLW           0X03            ;0              0               1       
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                                    1
+01A3   0087               M                                 MOVWF           PORTC
+01A4   2???               M                                 CALL            T10MS
+01A5   3002               M                                 MOVLW           0X02            ;0              0               1       
+                                    0
+01A6   0087               M                                 MOVWF           PORTC
+01A7   2???               M                                 CALL            T10MS
+01A8   3006               M                                 MOVLW           0X06            ;0              1               1       
+                                    0
+01A9   0087               M                                 MOVWF           PORTC
+01AA   2???               M                                 CALL            T10MS
+01AB   3004               M                                 MOVLW           0X04            ;0              1               0       
+                                    0
+01AC   0087               M                                 MOVWF           PORTC
+01AD   2???               M                                 CALL            T10MS
+01AE   300C               M                                 MOVLW           0X0C            ;1              1               0       
+                                    0
+01AF   0087               M                                 MOVWF           PORTC
+01B0   2???               M                                 CALL            T10MS
+01B1   3008               M                                 MOVLW           0X08            ;1              0               0       
+                                    0
+01B2   0087               M                                 MOVWF           PORTC
+01B3   2???               M                                 CALL            T10MS
+01B4   0BB4           00235                         DECFSZ  DATO4,F                         ;DATO4-1=0?
+01B5   2???           00236                         GOTO    GIRA_HOR_5                      ;NO, SALTA A GIRA_HOR_5
+                      00237                         APAGADO                                         ;APAGA EL MOTOR
+01B6   0187               M                                 CLRF            PORTC           ;LIMPIA EL PUERTO C
+01B7   2???           00238                         CALL    T_1S                            ;LLAMA A 1 SEGUNDO
+01B8   2???           00239                         GOTO    T5_D                            ;SALTA A T5_D
+                      00240 
+01B9   0BA9           00241 T5_D:           DECFSZ          TIEMPO5,F               ;TIEMPO5-1=0?
+01BA   2???           00242                         GOTO            SEG_POS_5               ;NO, SALTA A SEG_POS_5
+01BB   2???           00243                         GOTO            POSICION_0              ;SALTA A POSICION_0
+01BC   2???           00244 SEG_POS_5:      CALL            T_1S                    ;LLAMA A 1 SEGUNDO
+01BD   2???           00245                         GOTO            T5_D                    ;SALTA A T5_D
+                      00246 
+                      00247 
+                      00248 T_1S:           SUBT3V          .79,.10,.171    ;999995 us
+01BE   304F               M                                 MOVLW           .79
+01BF   00E4               M                                 MOVWF           0X64
+01C0   300A               M                                 MOVLW           .10
+01C1   00E5               M                                 MOVWF           0X65
+01C2   30AB               M                                 MOVLW           .171
+01C3   00E6               M                                 MOVWF           0X66
+01C4   2???               M                                 CALL            ST3V
+01C5   0008           00249                         RETURN  
+                      00250 
+                      00251 T10MS:          SUBT3V          .5,.1,.163              ;8994 us
+01C6   3005               M                                 MOVLW           .5
+01C7   00E4               M                                 MOVWF           0X64
+01C8   3001               M                                 MOVLW           .1
+01C9   00E5               M                                 MOVWF           0X65
+01CA   30A3               M                                 MOVLW           .163
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01CB   00E6               M                                 MOVWF           0X66
+01CC   2???               M                                 CALL            ST3V
+01CD   0008           00252                         RETURN          
+                      00253 
+                      00254 T12MS:          SUBT3V          .21,.11,.7              ;12mS
+01CE   3015               M                                 MOVLW           .21
+01CF   00E4               M                                 MOVWF           0X64
+01D0   300B               M                                 MOVLW           .11
+01D1   00E5               M                                 MOVWF           0X65
+01D2   3007               M                                 MOVLW           .7
+01D3   00E6               M                                 MOVWF           0X66
+01D4   2???               M                                 CALL            ST3V
+01D5   0008           00255                         RETURN
+                      00256 
+                      00257 T25MS:          SUBT3V          .67,.17,.3              ;25mS
+01D6   3043               M                                 MOVLW           .67
+01D7   00E4               M                                 MOVWF           0X64
+01D8   3011               M                                 MOVLW           .17
+01D9   00E5               M                                 MOVWF           0X65
+01DA   3003               M                                 MOVLW           .3
+01DB   00E6               M                                 MOVWF           0X66
+01DC   2???               M                                 CALL            ST3V
+01DD   0008           00258                         RETURN                  
+                      00259         
+01DE   2???           00260 FIN:        GOTO        $
+                      00261 
+                      00262                         INCLUDE <SUBTIEMPO_2.2.ASM>
+                      00001 ;SUBRUTINA DE TIEMPO DE UNA VARIABLE
+01DF   0000           00002 ST1V:           NOP
+01E0   0000           00003                         NOP
+01E1   0000           00004                         NOP
+01E2   0000           00005                         NOP
+01E3   0BE0           00006                         DECFSZ  0X60,F
+01E4   2???           00007                         GOTO    ST1V
+01E5   0008           00008                         RETURN
+                      00009 ;*************************************
+                      00010 ;SUBRUTINA DE TIEMPO DE DOS VARIABLES
+01E6   0862           00011 ST2V:           MOVF    0X62,W
+01E7   00E3           00012                         MOVWF   0X63
+01E8   0000           00013 DECRE2V:        NOP
+01E9   0000           00014                         NOP
+01EA   0000           00015                         NOP
+01EB   0000           00016                         NOP
+01EC   0BE3           00017                         DECFSZ  0X63,F
+01ED   2???           00018                         GOTO    DECRE2V
+01EE   0BE1           00019                         DECFSZ  0X61,F
+01EF   2???           00020                         GOTO    ST2V
+01F0   0008           00021                         RETURN
+                      00022 ;*************************************
+                      00023 ;SUBRUTINA DE TIEMPO DE TRES VARIABLES
+01F1   0866           00024 ST3V:           MOVF    0X66,W
+01F2   00E7           00025                         MOVWF   0X67
+01F3   0865           00026 RECARGA3V:      MOVF    0X65,W
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01F4   00E8           00027                         MOVWF   0X68
+01F5   0000           00028 DECRE3V:        NOP
+01F6   0000           00029                         NOP
+01F7   0000           00030                         NOP
+01F8   0000           00031                         NOP
+01F9   0BE8           00032                         DECFSZ  0X68,F
+01FA   2???           00033                         GOTO    DECRE3V
+01FB   0BE7           00034                         DECFSZ  0X67,F
+01FC   2???           00035                         GOTO    RECARGA3V
+01FD   0BE4           00036                         DECFSZ  0X64,F
+01FE   2???           00037                         GOTO    ST3V
+01FF   0008           00038                         RETURN
+23E4 3FFF             00263                         END
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS12                             00000004
+ANS13                             00000005
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             00000188
+ANSELH                            00000189
+APAGADO                           
+BAUDCTL                           00000187
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BRG9                              00000001
+BRGH                              00000002
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1RSEL                            00000005
+C1SEN                             00000005
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2RSEL                            00000004
+C2SYNC                            00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000107
+CM2CON0                           00000108
+CM2CON1                           00000109
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DATO                              00000031
+DATO2                             00000032
+DATO3                             00000033
+DATO4                             00000034
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DECRE2V                           000001E8
+DECRE3V                           000001F5
+D_A                               00000005
+D_NOT_A                           00000005
+ECCPAS                            0000009C
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FIN                               000001DE
+FSR                               00000004
+FVREN                             00000000
+GCEN                              00000007
+GIE                               00000007
+GIRA_ANT_2                        00000042
+GIRA_ANT_3                        000000A4
+GIRA_ANT_4                        00000106
+GIRA_ANT_5                        00000168
+GIRA_HOR_2                        0000005E
+GIRA_HOR_3                        000000C0
+GIRA_HOR_4                        00000122
+GIRA_HOR_5                        00000184
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+HTS                               00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCB                              00000096
+IOCB0                             00000000
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+LTS                               00000001
+MC1OUT                            00000007
+MC2OUT                            00000006
+MSK                               00000093
+MSK0                              00000000
+MSK1                              00000001
+MSK2                              00000002
+MSK3                              00000003
+MSK4                              00000004
+MSK5                              00000005
+MSK6                              00000006
+MSK7                              00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PDER                              
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PIZQ                              
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+POSICION1                         00000020
+POSICION2                         00000022
+POSICION3                         00000024
+POSICION4                         00000026
+POSICION5                         00000028
+POSICION_0                        0000000D
+POSI_1                            00000016
+POSI_2                            00000036
+POSI_3                            00000098
+POSI_4                            000000FA
+POSI_5                            0000015C
+PR2                               00000092
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PSTRCON                           0000009D
+PULSR                             00000002
+PULSS                             00000003
+PUSH_ANTIR                        
+PWM1CON                           0000009B
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 26
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RE3                               00000003
+READ_WRITE                        00000002
+RECARGA3V                         000001F3
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SEG_POS_1                         00000034
+SEG_POS_2                         00000096
+SEG_POS_3                         000000F8
+SEG_POS_4                         0000015A
+SEG_POS_5                         000001BC
+SEN                               00000000
+SENDB                             00000003
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+ST1V                              000001DF
+ST2V                              000001E6
+ST3V                              000001F1
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SUBT1V                            
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 27
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SUBT2V                            
+SUBT3V                            
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T10MS                             000001C6
+T12MS                             000001CE
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GIV                             00000007
+T1GSS                             00000001
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T1_D                              00000031
+T25MS                             000001D6
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+T2_D                              00000093
+T3_D                              000000F5
+T4_D                              00000157
+T5_D                              000001B9
+TIEMPO1                           00000021
+TIEMPO2                           00000023
+TIEMPO3                           00000025
+TIEMPO4                           00000027
+TIEMPO5                           00000029
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRISE3                            00000003
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TXREG                             00000019
+TXSTA                             00000098
+T_1S                              000001BE
+UA                                00000001
+ULPWUE                            00000005
+ULPWUIE                           00000002
+ULPWUIF                           00000002
+VCFG0                             00000004
+VCFG1                             00000005
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000097
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+VRSS                              00000004
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000105
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
+WPUB2                             00000002
+WPUB3                             00000003
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+Z                                 00000002
+_.org_0_000F                      0000000F
+_.org_0_0012                      00000012
+_.org_0_01DE                      000001DE
+_BOR21V                           00003EFF
+_BOR40V                           00003FFF
+_BOR4V_BOR21V                     00003EFF
+_BOR4V_BOR40V                     00003FFF
+_BOREN_NSLEEP                     00003EFF
+_BOREN_OFF                        00003CFF
+_BOREN_ON                         00003FFF
+_BOREN_SBODEN                     00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_BOR_SBODEN                       00003DFF
+_CONFIG1                          00002007
+_CONFIG2                          00002008
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         00001FFF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_FOSC_EC                          00003FFB
+_FOSC_EXTRC_CLKOUT                00003FFF
+_FOSC_EXTRC_NOCLKOUT              00003FFE
+_FOSC_HS                          00003FFA
+_FOSC_INTRC_CLKOUT                00003FFD
+_FOSC_INTRC_NOCLKOUT              00003FFC
+_FOSC_LP                          00003FF8
+_FOSC_XT                          00003FF9
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_LVP_OFF                          00002FFF
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDTE_OFF                         00003FF7
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+MPASM  5.51                          P2_2.ASM   3-24-2024  21:58:24         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__DEBUG                           1
+
+Errors   :     0
+Warnings :    15 reported,     0 suppressed
+Messages :     4 reported,     0 suppressed
+
+
